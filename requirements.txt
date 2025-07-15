@@ -1,2 +1,7 @@
 openpyxl
 ttkbootstrap
+streamlit
+pandas 
+openpyxl 
+plotly
+datetime
