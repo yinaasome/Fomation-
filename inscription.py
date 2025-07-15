@@ -7,27 +7,56 @@ import plotly.express as px
 import plotly.graph_objects as go
 from openpyxl import load_workbook, Workbook
 import io
+import json
 
 # Configuration de la page
 st.set_page_config(
     page_title="Plateforme d'inscription - Python Géologie & Mines",
     page_icon="🐍",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Configuration Admin
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "python2025"
-contenu_path = "contenu_formation.txt"
+modules_dir = "modules_formation"
 
 # Initialiser les variables de session
 if 'admin_logged_in' not in st.session_state:
     st.session_state.admin_logged_in = False
 if 'inscriptions_df' not in st.session_state:
     st.session_state.inscriptions_df = pd.DataFrame()
+if 'selected_module' not in st.session_state:
+    st.session_state.selected_module = "Module 1"
+if 'show_editor' not in st.session_state:
+    st.session_state.show_editor = False
+
+# Liste des modules
+MODULES = [
+    "Module 1 - Introduction à Python",
+    "Module 2 - Bases de la programmation",
+    "Module 3 - Structures de données",
+    "Module 4 - Fonctions et modules",
+    "Module 5 - Manipulation de fichiers",
+    "Module 6 - Bibliothèques géologiques",
+    "Module 7 - Visualisation de données",
+    "Module 8 - Projet final"
+]
 
 # Fonctions utilitaires
+def initialiser_dossier_modules():
+    """Crée le dossier modules si inexistant"""
+    if not os.path.exists(modules_dir):
+        os.makedirs(modules_dir)
+    
+    # Créer les fichiers modules s'ils n'existent pas
+    for module in MODULES:
+        module_file = os.path.join(modules_dir, f"{module}.txt")
+        if not os.path.exists(module_file):
+            with open(module_file, "w", encoding="utf-8") as f:
+                f.write(f"# {module}\n\nContenu du {module.lower()} à définir...")
+
 def initialiser_excel():
     """Crée le fichier Excel si inexistant"""
     if not os.path.exists("inscriptions.xlsx"):
@@ -95,7 +124,22 @@ def sauvegarder_inscription(data):
     except Exception as e:
         return False, f"Erreur lors de l'enregistrement : {str(e)}"
 
-# Initialiser le fichier Excel
+def charger_contenu_module(module_name):
+    """Charge le contenu d'un module spécifique"""
+    module_file = os.path.join(modules_dir, f"{module_name}.txt")
+    if os.path.exists(module_file):
+        with open(module_file, "r", encoding="utf-8") as f:
+            return f.read()
+    return f"Contenu du {module_name} non trouvé."
+
+def sauvegarder_contenu_module(module_name, content):
+    """Sauvegarde le contenu d'un module spécifique"""
+    module_file = os.path.join(modules_dir, f"{module_name}.txt")
+    with open(module_file, "w", encoding="utf-8") as f:
+        f.write(content)
+
+# Initialiser les dossiers et fichiers
+initialiser_dossier_modules()
 initialiser_excel()
 
 # CSS personnalisé
@@ -111,6 +155,58 @@ st.markdown("""
         color: #A23B72;
         font-size: 1.5rem;
         margin: 1rem 0;
+    }
+    .nav-tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid #e0e0e0;
+    }
+    .nav-tab {
+        padding: 15px 30px;
+        margin: 0 5px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-bottom: none;
+        cursor: pointer;
+        font-weight: 500;
+        border-radius: 10px 10px 0 0;
+        transition: all 0.3s ease;
+    }
+    .nav-tab:hover {
+        background-color: #e9ecef;
+        transform: translateY(-2px);
+    }
+    .nav-tab.active {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+    .module-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+    .module-btn {
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .module-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .module-btn.active {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        transform: translateY(-1px);
     }
     .stats-card {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -134,19 +230,54 @@ st.markdown("""
         border-radius: 5px;
         border: 1px solid #f5c6cb;
     }
+    .module-content {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid #007bff;
+        margin: 20px 0;
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # Header principal
 st.markdown('<h1 class="main-header">🐍 Plateforme d\'inscription - Python Géologie & Mines</h1>', unsafe_allow_html=True)
 
-# Sidebar pour la navigation
-st.sidebar.title("Navigation")
-page = st.sidebar.radio("Choisir une section", 
-                       ["📘 Contenu Formation", "📝 Inscription", "📊 Statistiques", "👤 Admin"])
+# Navigation horizontale
+st.markdown("""
+<div class="nav-tabs">
+    <div class="nav-tab">📘 Contenu Formation</div>
+    <div class="nav-tab">📝 Inscription</div>
+    <div class="nav-tab">📊 Statistiques</div>
+    <div class="nav-tab">👤 Admin</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Sélection de page avec boutons
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    if st.button("📘 Contenu Formation", use_container_width=True):
+        st.session_state.page = "contenu"
+
+with col2:
+    if st.button("📝 Inscription", use_container_width=True):
+        st.session_state.page = "inscription"
+
+with col3:
+    if st.button("📊 Statistiques", use_container_width=True):
+        st.session_state.page = "statistiques"
+
+with col4:
+    if st.button("👤 Admin", use_container_width=True):
+        st.session_state.page = "admin"
+
+# Initialiser la page par défaut
+if 'page' not in st.session_state:
+    st.session_state.page = "contenu"
 
 # ==================== SECTION ADMIN ====================
-if page == "👤 Admin":
+if st.session_state.page == "admin":
     st.markdown('<h2 class="section-header">👤 Connexion Admin</h2>', unsafe_allow_html=True)
     
     if not st.session_state.admin_logged_in:
@@ -170,21 +301,38 @@ if page == "👤 Admin":
             st.rerun()
 
 # ==================== SECTION CONTENU FORMATION ====================
-elif page == "📘 Contenu Formation":
+elif st.session_state.page == "contenu":
     st.markdown('<h2 class="section-header">📘 Contenu de la Formation</h2>', unsafe_allow_html=True)
     
-    # Charger et afficher le contenu
-    if os.path.exists(contenu_path):
-        with open(contenu_path, "r", encoding="utf-8") as f:
-            contenu = f.read()
-    else:
-        contenu = "Aucun contenu de formation n'a été téléversé pour le moment."
+    # Boutons de sélection des modules
+    st.markdown("### Sélectionnez un module :")
     
-    st.text_area("Contenu de la formation", value=contenu, height=400, disabled=True)
+    # Créer les boutons de modules en grille
+    cols = st.columns(4)
+    for i, module in enumerate(MODULES):
+        with cols[i % 4]:
+            if st.button(f"📖 {module.split(' - ')[0]}", 
+                        key=f"module_{i}",
+                        use_container_width=True):
+                st.session_state.selected_module = module
+                st.session_state.show_editor = False
     
-    # Fonctions admin
+    # Afficher le contenu du module sélectionné
+    st.markdown(f"### 📚 {st.session_state.selected_module}")
+    
+    contenu = charger_contenu_module(st.session_state.selected_module)
+    
+    st.markdown(f"""
+    <div class="module-content">
+        <h4>📄 Contenu du {st.session_state.selected_module}</h4>
+        <pre style="white-space: pre-wrap; font-family: inherit;">{contenu}</pre>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Fonctions admin pour modifier le contenu
     if st.session_state.admin_logged_in:
-        st.markdown("### Fonctions Admin")
+        st.markdown("---")
+        st.markdown("### 🔧 Fonctions Admin")
         
         col1, col2 = st.columns(2)
         
@@ -193,10 +341,9 @@ elif page == "📘 Contenu Formation":
             uploaded_file = st.file_uploader("Choisir un fichier texte", type=['txt'])
             if uploaded_file is not None:
                 content = uploaded_file.read().decode('utf-8')
-                if st.button("Téléverser"):
-                    with open(contenu_path, "w", encoding="utf-8") as f:
-                        f.write(content)
-                    st.success("Contenu mis à jour avec succès!")
+                if st.button("Téléverser pour ce module"):
+                    sauvegarder_contenu_module(st.session_state.selected_module, content)
+                    st.success(f"Contenu du {st.session_state.selected_module} mis à jour avec succès!")
                     st.rerun()
         
         with col2:
@@ -205,29 +352,29 @@ elif page == "📘 Contenu Formation":
                 st.session_state.show_editor = True
         
         # Éditeur de contenu
-        if st.session_state.get('show_editor', False):
-            st.subheader("Éditeur de contenu")
-            nouveau_contenu = st.text_area("Modifier le contenu", value=contenu, height=300)
+        if st.session_state.show_editor:
+            st.markdown("---")
+            st.subheader(f"✏️ Éditeur - {st.session_state.selected_module}")
+            nouveau_contenu = st.text_area("Modifier le contenu", value=contenu, height=400)
             
             col1, col2 = st.columns(2)
             with col1:
-                if st.button("Sauvegarder"):
-                    with open(contenu_path, "w", encoding="utf-8") as f:
-                        f.write(nouveau_contenu)
-                    st.success("Contenu sauvegardé avec succès!")
+                if st.button("💾 Sauvegarder"):
+                    sauvegarder_contenu_module(st.session_state.selected_module, nouveau_contenu)
+                    st.success(f"Contenu du {st.session_state.selected_module} sauvegardé avec succès!")
                     st.session_state.show_editor = False
                     st.rerun()
             
             with col2:
-                if st.button("Annuler"):
+                if st.button("❌ Annuler"):
                     st.session_state.show_editor = False
                     st.rerun()
     
     else:
-        st.info("Connectez-vous en tant qu'admin pour modifier le contenu.")
+        st.info("💡 Connectez-vous en tant qu'admin pour modifier le contenu des modules.")
 
 # ==================== SECTION INSCRIPTION ====================
-elif page == "📝 Inscription":
+elif st.session_state.page == "inscription":
     st.markdown('<h2 class="section-header">📝 Formulaire d\'inscription</h2>', unsafe_allow_html=True)
     
     with st.form("inscription_form"):
@@ -315,7 +462,7 @@ elif page == "📝 Inscription":
                     st.error(message)
 
 # ==================== SECTION STATISTIQUES ====================
-elif page == "📊 Statistiques":
+elif st.session_state.page == "statistiques":
     st.markdown('<h2 class="section-header">📊 Statistiques d\'inscription</h2>', unsafe_allow_html=True)
     
     if not st.session_state.admin_logged_in:
@@ -421,5 +568,7 @@ st.markdown("""
 <div style='text-align: center; color: #666; margin-top: 2rem;'>
     <p>© 2025 Plateforme d'inscription - Python Géologie & Mines</p>
     <p>Développé avec ❤️ et Streamlit</p>
+    <p>Tel :+266 77 77 77 77/88 88 88 88</p>
+    <p>Email: formation@gmail.com/p>
 </div>
 """, unsafe_allow_html=True)
