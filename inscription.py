@@ -745,6 +745,8 @@ function navigateTo(page) {
             button.click();
         }
     });
+
+    """, unsafe_allow_html=True)
     
     // Mettre à jour l'état actif
     document.querySelectorAll('.mobile-nav-button').forEach(btn => {
