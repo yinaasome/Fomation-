@@ -130,8 +130,8 @@ Cette formation est conçue pour toute personne souhaitant intégrer le numériq
 
 ## 📞 **Contactez-nous dès maintenant !**
 
-📧 **Email** : [formation@tcg-expertise.com](mailto:formation@tcg-expertise.com)
-📱 **Téléphone** : +226 25 45 67 67 / ‪+33779185080
+📧 **Email** : [formation@gmail.com](mailto:formation@gmail.com)
+📱 **Téléphone** : +226 77 77 77 77 / 88 88 88 88
 🌐 **Site web** : *En construction — restez connecté !*
 
 
@@ -329,113 +329,222 @@ def generer_rapport_csv():
         return None
 
 # Initialiser les dossiers et fichiers
-#initialiser_dossier_modules()
-#initialiser_excel()
-#initialiser_config()
+initialiser_dossier_modules()
+initialiser_excel()
+initialiser_config()
 
-# Charger la configuration
-config = charger_config()
-
+# CSS personnalisé avec sidebar moderne
 st.markdown("""
 <style>
-/* Masquer la vraie sidebar sur mobile */
-@media screen and (max-width: 768px) {
-    section[data-testid="stSidebar"] {
-        display: none !important;
+    /* Sidebar styling */
+    .stSidebar {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
-    .mobile-toggle-btn {
-        display: block !important;
+    
+    .stSidebar > div {
+        padding-top: 2rem;
     }
-}
-
-/* Bouton hamburger mobile */
-.mobile-toggle-btn {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    z-index: 999;
-    background: #667eea;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 10px;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-/* Menu mobile */
-#mobileSidebar {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 80%;
-    height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    z-index: 998;
-    padding: 2rem 1rem;
-    color: white;
-    overflow-y: auto;
-    border-right: 3px solid #555;
-}
-
-#mobileSidebar.active {
-    display: block;
-}
-
-.close-mobile-sidebar {
-    background: transparent;
-    color: white;
-    font-size: 2rem;
-    border: none;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    cursor: pointer;
-}
+    
+    .sidebar-title {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 2rem;
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 10px;
+    }
+    
+    .sidebar-button {
+        width: 100%;
+        padding: 15px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .sidebar-button:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .sidebar-button.active {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .sidebar-button:not(.active) {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .sidebar-admin-status {
+        background: rgba(255,255,255,0.1);
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+        margin: 1rem 0;
+        text-align: center;
+    }
+    
+    .sidebar-contact {
+        background: rgba(255,255,255,0.05);
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 2rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Main content styling */
+    .main-header {
+        text-align: center;
+        color: #2E86AB;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .section-header {
+        color: #A23B72;
+        font-size: 1.8rem;
+        margin: 1rem 0;
+        border-bottom: 3px solid #A23B72;
+        padding-bottom: 10px;
+    }
+    
+    .page-container {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        margin: 1rem 0;
+    }
+    
+    .description-content {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 30px;
+        border-radius: 15px;
+        margin: 20px 0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .admin-section {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px 0;
+        border-left: 5px solid #ff6b6b;
+    }
+    
+    .stats-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        margin: 10px 0;
+    }
+    
+    .module-content {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid #007bff;
+        margin: 20px 0;
+    }
+    
+    .module-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .module-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        font-size: 1rem;
+    }
+    
+    .module-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    .module-card.active {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    
+    .site-image {
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+    }
+    
+    .cta-section {
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 40px;
+        border-radius: 15px;
+        color: white;
+        margin: 30px 0;
+    }
+    
+    .footer {
+        text-align: center;
+        color: #666;
+        margin-top: 3rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 15px;
+    }
+    
+    .download-section {
+        background: linear-gradient(135deg, #e8f5e8 0%, #b8e6b8 100%);
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px 0;
+        border-left: 5px solid #28a745;
+    }
+    
+    /* Hide streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
 </style>
-
-<!-- Bouton ☰ -->
-<button class="mobile-toggle-btn" onclick="toggleMobileSidebar()">☰ Menu</button>
-
-<!-- Sidebar mobile -->
-<div id="mobileSidebar">
-    <button class="close-mobile-sidebar" onclick="toggleMobileSidebar()">×</button>
-    <h2>📘 Menu Principal</h2>
-    <ul style="list-style:none; padding-left:0;">
-        <li><a href="#" onclick="triggerStreamlitButton('🏠 Accueil')" style="color:white;">🏠 Accueil</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('📘 Contenu Formation')" style="color:white;">📘 Contenu</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('📝 Inscription')" style="color:white;">📝 Inscription</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('📊 Statistiques')" style="color:white;">📊 Statistiques</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('👤 Administration')" style="color:white;">👤 Admin</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('📥 Télécharger PDF')" style="color:white;">📥 Télécharger PDF</a></li>
-    </ul>
-</div>
-
-<script>
-function toggleMobileSidebar() {
-    var sidebar = document.getElementById('mobileSidebar');
-    sidebar.classList.toggle('active');
-}
-
-function triggerStreamlitButton(label) {
-    const buttons = window.parent.document.querySelectorAll('[data-testid="stButton"] button');
-    buttons.forEach(btn => {
-        if (btn.innerText.trim().includes(label)) {
-            btn.click();
-        }
-    });
-    toggleMobileSidebar();
-}
-</script>
 """, unsafe_allow_html=True)
 
+# SIDEBAR MENU
+config = charger_config()
 
-# --- 2. Boutons visibles seulement sur PC dans la vraie sidebar ---
 with st.sidebar:
-    st.markdown('<div class="sidebar-title">🐍 Menu Principal</div>', unsafe_allow_html=True)
+    st.markdown(f"""
+    <div class="sidebar-title">
+        🐍 Menu Principal
+    </div>
+    """, unsafe_allow_html=True)
+    
     # Boutons de navigation
     if st.button("🏠 Accueil", key="nav_accueil", use_container_width=True):
         st.session_state.menu_page = "accueil"
@@ -475,9 +584,9 @@ with st.sidebar:
     st.markdown("""
     <div class="sidebar-contact">
         <h4>📞 Contact</h4>
-        <p>📧 formation@tcg-expertise.com</p>
-        <p>📱 +266 25 45 67 67</p>
-        <p>📱 +33779185080</p>
+        <p>📧 formation@gmail.com</p>
+        <p>📱 +226 77 77 77 77</p>
+        <p>📱 +226 88 88 88 88</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -700,10 +809,10 @@ elif st.session_state.menu_page == "accueil":
    
    # Contenu principal
    st.markdown(f"""
-<div class="description-content">
-    {config.get("site_description", DEFAULT_CONFIG["site_description"])}
-</div>
-""", unsafe_allow_html=True)
+   <div class="description-content">
+       {config["site_description"]}
+   </div>
+   """, unsafe_allow_html=True)
    
    # CTA Section
    st.markdown("""
@@ -1063,6 +1172,6 @@ st.markdown("""
 <div class="footer">
    <p>© 2025 Formation Python pour Géologie & Mines</p>
    <p>Développé avec ❤️ par l'équipe de formation</p>
-   <p>📧 formation@tcg-expertise.com | 📱 25 45 67 67 / +33779185080</p>
+   <p>📧 formation@gmail.com | 📱 +226 77 77 77 77</p>
 </div>
 """, unsafe_allow_html=True)
