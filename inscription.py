@@ -333,10 +333,89 @@ def generer_rapport_csv():
 #initialiser_excel()
 #initialiser_config()
 
-# CSS personnalisé avec sidebar moderne
+# CSS personnalisé avec amélioration mobile
 st.markdown("""
 <style>
-    /* Sidebar styling */
+    /* Mobile-first responsive design */
+    @media (max-width: 768px) {
+        .stApp {
+            padding: 0 !important;
+        }
+        
+        .main .block-container {
+            padding: 1rem !important;
+            max-width: 100% !important;
+        }
+        
+        .mobile-nav {
+            display: block !important;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px;
+            border-radius: 0 0 10px 10px;
+            margin-bottom: 20px;
+        }
+        
+        .mobile-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        
+        .mobile-nav-button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: white;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .mobile-nav-button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+        
+        .mobile-nav-button.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .mobile-contact {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        
+        .mobile-status {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+    }
+    
+    @media (min-width: 769px) {
+        .mobile-nav {
+            display: none !important;
+        }
+    }
+    
+    /* Sidebar styling for desktop */
     .stSidebar {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
@@ -418,12 +497,24 @@ st.markdown("""
         background-clip: text;
     }
     
+    @media (max-width: 768px) {
+        .main-header {
+            font-size: 1.8rem;
+        }
+    }
+    
     .section-header {
         color: #A23B72;
         font-size: 1.8rem;
         margin: 1rem 0;
         border-bottom: 3px solid #A23B72;
         padding-bottom: 10px;
+    }
+    
+    @media (max-width: 768px) {
+        .section-header {
+            font-size: 1.4rem;
+        }
     }
     
     .page-container {
@@ -434,6 +525,13 @@ st.markdown("""
         margin: 1rem 0;
     }
     
+    @media (max-width: 768px) {
+        .page-container {
+            padding: 1rem;
+            border-radius: 10px;
+        }
+    }
+    
     .description-content {
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         padding: 30px;
@@ -442,12 +540,24 @@ st.markdown("""
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
     
+    @media (max-width: 768px) {
+        .description-content {
+            padding: 15px;
+        }
+    }
+    
     .admin-section {
         background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
         padding: 20px;
         border-radius: 15px;
         margin: 20px 0;
         border-left: 5px solid #ff6b6b;
+    }
+    
+    @media (max-width: 768px) {
+        .admin-section {
+            padding: 15px;
+        }
     }
     
     .stats-card {
@@ -467,11 +577,24 @@ st.markdown("""
         margin: 20px 0;
     }
     
+    @media (max-width: 768px) {
+        .module-content {
+            padding: 15px;
+        }
+    }
+    
     .module-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 15px;
         margin: 20px 0;
+    }
+    
+    @media (max-width: 768px) {
+        .module-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
     }
     
     .module-card {
@@ -511,6 +634,12 @@ st.markdown("""
         margin: 30px 0;
     }
     
+    @media (max-width: 768px) {
+        .cta-section {
+            padding: 20px;
+        }
+    }
+    
     .footer {
         text-align: center;
         color: #666;
@@ -518,6 +647,12 @@ st.markdown("""
         padding: 2rem;
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         border-radius: 15px;
+    }
+    
+    @media (max-width: 768px) {
+        .footer {
+            padding: 1rem;
+        }
     }
     
     .download-section {
@@ -532,10 +667,82 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+    
+    /* Responsive grid fixes */
+    @media (max-width: 768px) {
+        .stColumns {
+            flex-direction: column;
+        }
+        
+        .stColumn {
+            width: 100% !important;
+            margin-bottom: 1rem;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# SIDEBAR MENU
+# NAVIGATION MOBILE
+st.markdown("""
+<div class="mobile-nav">
+    <div id="mobile-nav-content">
+        <div class="mobile-nav-grid">
+            <button class="mobile-nav-button" onclick="navigateTo('accueil')">🏠 Accueil</button>
+            <button class="mobile-nav-button" onclick="navigateTo('contenu')">📘 Contenu</button>
+            <button class="mobile-nav-button" onclick="navigateTo('inscription')">📝 Inscription</button>
+            <button class="mobile-nav-button" onclick="navigateTo('statistiques')">📊 Stats</button>
+            <button class="mobile-nav-button" onclick="navigateTo('admin')">👤 Admin</button>
+            <button class="mobile-nav-button" onclick="toggleContact()">📞 Contact</button>
+        </div>
+        <div id="mobile-contact" class="mobile-contact" style="display: none;">
+            <p>📧 formation@gmail.com</p>
+            <p>📱 +226 77 77 77 77</p>
+            <p>📱 +226 88 88 88 88</p>
+        </div>
+        <div class="mobile-status">
+            <span id="mobile-status-text">👤 Visiteur</span>
+        </div>
+    </div>
+</div>
+
+<script>
+function navigateTo(page) {
+    // Utiliser les boutons Streamlit cachés pour la navigation
+    const buttons = document.querySelectorAll('[data-testid="stButton"] button');
+    buttons.forEach(button => {
+        if (button.textContent.includes(page) || 
+            (page === 'accueil' && button.textContent.includes('Accueil')) ||
+            (page === 'contenu' && button.textContent.includes('Contenu')) ||
+            (page === 'inscription' && button.textContent.includes('Inscription')) ||
+            (page === 'statistiques' && button.textContent.includes('Statistiques')) ||
+            (page === 'admin' && button.textContent.includes('Administration'))) {
+            button.click();
+        }
+    });
+    
+    // Mettre à jour l'état actif
+    document.querySelectorAll('.mobile-nav-button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+}
+
+function toggleContact() {
+    const contact = document.getElementById('mobile-contact');
+    contact.style.display = contact.style.display === 'none' ? 'block' : 'none';
+}
+
+// Mettre à jour le statut admin
+function updateMobileStatus(isAdmin) {
+    const statusText = document.getElementById('mobile-status-text');
+    if (statusText) {
+        statusText.textContent = isAdmin ? '✅ Admin' : '👤 Visiteur';
+    }
+}
+</script>
+""", unsafe_allow_html=True)
+
+# SIDEBAR MENU (pour desktop)
 config = charger_config()
 
 with st.sidebar:
