@@ -459,86 +459,24 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Menu mobile
-# Ajoutez ceci dans la partie CSS (remplacez la partie CSS existante)
 st.markdown("""
-<style>
-    /* Menu mobile */
-    .mobile-menu {
-        display: none;
-        margin-bottom: 1rem;
-    }
+<div class="mobile-nav">
+    <button class="mobile-nav-button" onclick="window.streamlitAPI.setComponentValue('accueil')">🏠 Accueil</button>
+    <button class="mobile-nav-button" onclick="window.streamlitAPI.setComponentValue('contenu')">📘 Contenu</button>
+    <button class="mobile-nav-button" onclick="window.streamlitAPI.setComponentValue('inscription')">📝 Inscription</button>
+    <button class="mobile-nav-button" onclick="window.streamlitAPI.setComponentValue('statistiques')">📊 Stats</button>
+    <button class="mobile-nav-button" onclick="window.streamlitAPI.setComponentValue('admin')">👤 Admin</button>
     
-    .mobile-menu select {
-        width: 100%;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #667eea;
-        background-color: white;
-        font-size: 16px;
-    }
+    <div class="mobile-contact">
+        <p>📧 formation@gmail.com</p>
+        <p>📱 +226 77 77 77 77</p>
+    </div>
     
-    @media (max-width: 768px) {
-        .mobile-menu {
-            display: block;
-        }
-        
-        .desktop-menu {
-            display: none;
-        }
-    }
-    
-    /* Autres styles mobiles */
-    @media (max-width: 768px) {
-        .stApp {
-            padding: 0.5rem !important;
-        }
-        
-        .stTextInput input, .stSelectbox select, 
-        .stNumberInput input, .stTextArea textarea {
-            font-size: 16px !important;
-            padding: 12px !important;
-        }
-        
-        .stButton button {
-            padding: 12px !important;
-            font-size: 16px !important;
-        }
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# Ajoutez ceci juste après le CSS, avant le contenu principal
-st.markdown("""
-<div class="mobile-menu">
-    <select onchange="window.location.href=this.value">
-        <option value="#accueil">🏠 Accueil</option>
-        <option value="#contenu">📘 Contenu</option>
-        <option value="#inscription">📝 Inscription</option>
-        <option value="#statistiques">📊 Statistiques</option>
-        <option value="#admin">👤 Admin</option>
-    </select>
+    <div class="mobile-status">
+        <span>👤 Visiteur</span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
-
-# Modifiez la navigation pour utiliser des ancres
-pages = {
-    "accueil": "Accueil",
-    "contenu": "Contenu",
-    "inscription": "Inscription",
-    "statistiques": "Statistiques",
-    "admin": "Administration"
-}
-
-# Dans chaque section de page, ajoutez une ancre
-if st.session_state.menu_page == "accueil":
-    st.markdown('<a name="accueil"></a>', unsafe_allow_html=True)
-    # ... reste du contenu de la page accueil
-
-elif st.session_state.menu_page == "contenu":
-    st.markdown('<a name="contenu"></a>', unsafe_allow_html=True)
-    # ... reste du contenu de la page contenu
-
-# etc. pour les autres pages
 
 # CONTENU PRINCIPAL
 st.markdown(f'<h1 class="main-header">{config["site_title"]}</h1>', unsafe_allow_html=True)
