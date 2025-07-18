@@ -329,9 +329,9 @@ def generer_rapport_csv():
         return None
 
 # Initialiser les dossiers et fichiers
-initialiser_dossier_modules()
-initialiser_excel()
-initialiser_config()
+#initialiser_dossier_modules()
+#initialiser_excel()
+#initialiser_config()
 
 # CSS personnalisé avec sidebar moderne
 st.markdown("""
