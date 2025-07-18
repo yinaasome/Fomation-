@@ -338,7 +338,7 @@ config = charger_config()
 
 st.markdown("""
 <style>
-/* Masquer la sidebar en mobile (<768px) */
+/* Masquer la vraie sidebar sur mobile */
 @media screen and (max-width: 768px) {
     section[data-testid="stSidebar"] {
         display: none !important;
@@ -348,7 +348,7 @@ st.markdown("""
     }
 }
 
-/* Bouton ☰ (menu mobile) */
+/* Bouton hamburger mobile */
 .mobile-toggle-btn {
     display: none;
     position: fixed;
@@ -362,9 +362,10 @@ st.markdown("""
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Menu mobile (slide in) */
+/* Menu mobile */
 #mobileSidebar {
     display: none;
     position: fixed;
@@ -376,10 +377,14 @@ st.markdown("""
     z-index: 998;
     padding: 2rem 1rem;
     color: white;
+    overflow-y: auto;
+    border-right: 3px solid #555;
 }
+
 #mobileSidebar.active {
     display: block;
 }
+
 .close-mobile-sidebar {
     background: transparent;
     color: white;
@@ -395,16 +400,17 @@ st.markdown("""
 <!-- Bouton ☰ -->
 <button class="mobile-toggle-btn" onclick="toggleMobileSidebar()">☰ Menu</button>
 
-<!-- Menu mobile (mêmes liens que les boutons Streamlit) -->
+<!-- Sidebar mobile -->
 <div id="mobileSidebar">
     <button class="close-mobile-sidebar" onclick="toggleMobileSidebar()">×</button>
-    <h3>📘 Menu Principal</h3>
+    <h2>📘 Menu Principal</h2>
     <ul style="list-style:none; padding-left:0;">
         <li><a href="#" onclick="triggerStreamlitButton('🏠 Accueil')" style="color:white;">🏠 Accueil</a></li>
         <li><a href="#" onclick="triggerStreamlitButton('📘 Contenu Formation')" style="color:white;">📘 Contenu</a></li>
         <li><a href="#" onclick="triggerStreamlitButton('📝 Inscription')" style="color:white;">📝 Inscription</a></li>
         <li><a href="#" onclick="triggerStreamlitButton('📊 Statistiques')" style="color:white;">📊 Statistiques</a></li>
         <li><a href="#" onclick="triggerStreamlitButton('👤 Administration')" style="color:white;">👤 Admin</a></li>
+        <li><a href="#" onclick="triggerStreamlitButton('📥 Télécharger PDF')" style="color:white;">📥 Télécharger PDF</a></li>
     </ul>
 </div>
 
@@ -413,6 +419,7 @@ function toggleMobileSidebar() {
     var sidebar = document.getElementById('mobileSidebar');
     sidebar.classList.toggle('active');
 }
+
 function triggerStreamlitButton(label) {
     const buttons = window.parent.document.querySelectorAll('[data-testid="stButton"] button');
     buttons.forEach(btn => {
@@ -429,12 +436,6 @@ function triggerStreamlitButton(label) {
 # --- 2. Boutons visibles seulement sur PC dans la vraie sidebar ---
 with st.sidebar:
     st.markdown('<div class="sidebar-title">🐍 Menu Principal</div>', unsafe_allow_html=True)
-    accueil = st.button("Accueil")
-    contenu = st.button("Contenu")
-    inscription = st.button("Inscription")
-    statistiques = st.button("Statistiques")
-    admin = st.button("Administration")
-
     # Boutons de navigation
     if st.button("🏠 Accueil", key="nav_accueil", use_container_width=True):
         st.session_state.menu_page = "accueil"
