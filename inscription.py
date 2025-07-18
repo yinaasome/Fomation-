@@ -682,9 +682,18 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# NAVIGATION MOBILE
-st.markdown("""
+<!-- NAVIGATION MOBILE -->
+<div class="mobile-overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
 <div class="mobile-nav">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <span>📱 Menu Principal</span>
+        <div class="hamburger-icon">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+    </button>
+    
     <div id="mobile-nav-content">
         <div class="mobile-nav-grid">
             <button class="mobile-nav-button" onclick="navigateTo('accueil')">🏠 Accueil</button>
@@ -694,11 +703,13 @@ st.markdown("""
             <button class="mobile-nav-button" onclick="navigateTo('admin')">👤 Admin</button>
             <button class="mobile-nav-button" onclick="toggleContact()">📞 Contact</button>
         </div>
+        
         <div id="mobile-contact" class="mobile-contact" style="display: none;">
             <p>📧 formation@gmail.com</p>
             <p>📱 +226 77 77 77 77</p>
             <p>📱 +226 88 88 88 88</p>
         </div>
+        
         <div class="mobile-status">
             <span id="mobile-status-text">👤 Visiteur</span>
         </div>
@@ -706,6 +717,21 @@ st.markdown("""
 </div>
 
 <script>
+function toggleMobileMenu() {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const content = document.getElementById('mobile-nav-content');
+    const overlay = document.getElementById('mobile-overlay');
+    
+    toggle.classList.toggle('active');
+    content.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    // Fermer le contact si ouvert
+    if (!content.classList.contains('active')) {
+        document.getElementById('mobile-contact').style.display = 'none';
+    }
+}
+
 function navigateTo(page) {
     // Utiliser les boutons Streamlit cachés pour la navigation
     const buttons = document.querySelectorAll('[data-testid="stButton"] button');
@@ -725,6 +751,9 @@ function navigateTo(page) {
         btn.classList.remove('active');
     });
     event.target.classList.add('active');
+    
+    // Fermer le menu après navigation
+    toggleMobileMenu();
 }
 
 function toggleContact() {
@@ -739,8 +768,17 @@ function updateMobileStatus(isAdmin) {
         statusText.textContent = isAdmin ? '✅ Admin' : '👤 Visiteur';
     }
 }
+
+// Fermer le menu en cliquant en dehors
+document.addEventListener('click', function(event) {
+    const nav = document.querySelector('.mobile-nav');
+    const overlay = document.getElementById('mobile-overlay');
+    
+    if (!nav.contains(event.target) && overlay.classList.contains('active')) {
+        toggleMobileMenu();
+    }
+});
 </script>
-""", unsafe_allow_html=True)
 
 # SIDEBAR MENU (pour desktop)
 config = charger_config()
