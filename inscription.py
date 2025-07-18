@@ -130,8 +130,8 @@ Cette formation est conçue pour toute personne souhaitant intégrer le numériq
 
 ## 📞 **Contactez-nous dès maintenant !**
 
-📧 **Email** : [formation@gmail.com](mailto:formation@gmail.com)
-📱 **Téléphone** : +226 77 77 77 77 / 88 88 88 88
+📧 **Email** : [formation@tcg-expertise.com](mailto:formation@tcg-expertise.com)
+📱 **Téléphone** : +226 25 45 67 67 / ‪+33779185080
 🌐 **Site web** : *En construction — restez connecté !*
 
 
@@ -329,19 +329,16 @@ def generer_rapport_csv():
         return None
 
 # Initialiser les dossiers et fichiers
-initialiser_dossier_modules()
-initialiser_excel()
-initialiser_config()
-
-import streamlit as st
+#initialiser_dossier_modules()
+#initialiser_excel()
+"initialiser_config()
 
 # Charger la configuration
 config = charger_config()
 
-# Injecter le CSS + JS
 st.markdown("""
 <style>
-/* Masquer sidebar sur mobile */
+/* Masquer sidebar sur mobile */             
 @media screen and (max-width: 768px) {
     section[data-testid="stSidebar"] {
         display: none !important;
@@ -437,6 +434,7 @@ function triggerStreamlitButton(label) {
 </script>
 """, unsafe_allow_html=True)
 
+
 with st.sidebar:
     st.markdown('<div class="sidebar-title">🐍 Menu Principal</div>', unsafe_allow_html=True)
     accueil = st.button("Accueil")
@@ -499,9 +497,9 @@ else:
     st.markdown("""
     <div class="sidebar-contact">
         <h4>📞 Contact</h4>
-        <p>📧 formation@gmail.com</p>
-        <p>📱 +226 77 77 77 77</p>
-        <p>📱 +226 88 88 88 88</p>
+        <p>📧 formation@tcg-expertise.com</p>
+        <p>📱 +266 25 45 67 67</p>
+        <p>📱 +33779185080</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -1087,6 +1085,6 @@ st.markdown("""
 <div class="footer">
    <p>© 2025 Formation Python pour Géologie & Mines</p>
    <p>Développé avec ❤️ par l'équipe de formation</p>
-   <p>📧 formation@gmail.com | 📱 +226 77 77 77 77</p>
+   <p>📧 formation@tcg-expertise.com | 📱 25 45 67 67 / +33779185080</p>
 </div>
 """, unsafe_allow_html=True)
