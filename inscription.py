@@ -54,12 +54,11 @@ MODULES = [
 DEFAULT_CONFIG = {
     "site_title": "Formation Python pour Géologie & Mines",
     "site_description": """
-
 # 🐍 **Bienvenue à la Formation Python pour les Sciences Géologiques & Minières**
 
 ## 💡 Pourquoi apprendre Python dans le domaine de la géologie et des mines ?
 
-Python est aujourd’hui **le langage incontournable** pour l’analyse et la visualisation de données scientifiques. Dans les domaines de la géologie et des mines, il permet de :
+Python est aujourd'hui **le langage incontournable** pour l'analyse et la visualisation de données scientifiques. Dans les domaines de la géologie et des mines, il permet de :
 
 🔹 Automatiser le traitement de données géophysiques et géochimiques
 🔹 Cartographier et modéliser des structures géologiques
@@ -67,9 +66,7 @@ Python est aujourd’hui **le langage incontournable** pour l’analyse et la vi
 🔹 Gérer et analyser des données volumineuses avec précision
 🔹 Améliorer la prise de décision grâce à des visualisations interactives
 
-**Bref, Python devient un véritable outil d’aide à la décision dans le secteur géo-minier.**
-
-
+**Bref, Python devient un véritable outil d'aide à la décision dans le secteur géo-minier.**
 
 ## 🎯 **Objectifs de la formation**
 
@@ -95,9 +92,7 @@ Python est aujourd’hui **le langage incontournable** pour l’analyse et la vi
 * **Matplotlib** & **Plotly** : Graphiques et cartes interactives
 * **Geopandas**, **PyGSLIB**, **lasio**, etc. : Pour les applications spécifiques en géosciences
 
-
-
-## 👤 **À qui s’adresse cette formation ?**
+## 👤 **À qui s'adresse cette formation ?**
 
 Cette formation est conçue pour toute personne souhaitant intégrer le numérique et la programmation dans les métiers de la géologie et des mines :
 
@@ -106,17 +101,14 @@ Cette formation est conçue pour toute personne souhaitant intégrer le numériq
 🔬 **Chercheurs** en sciences de la Terre
 🛠 **Ingénieurs** en exploration, production ou aménagement
 
-*Aucun niveau avancé en programmation n’est requis. Vous apprendrez de zéro !*
-
+*Aucun niveau avancé en programmation n'est requis. Vous apprendrez de zéro !*
 
 ## 📚 **Organisation de la formation**
 
 📅 **Durée** : 8 modules répartis sur 4 semaines
 🏫 **Format** : Présentiel ou 100% en ligne
-🖥 **Prérequis** : Aisance avec l’ordinateur (Windows/Linux)
+🖥 **Prérequis** : Aisance avec l'ordinateur (Windows/Linux)
 🎓 **Attestation** : Certificat délivré à la fin de la formation
-
-
 
 ## 💥 **Les plus de notre formation**
 
@@ -124,20 +116,17 @@ Cette formation est conçue pour toute personne souhaitant intégrer le numériq
 🔥 **Encadrement par des experts en géologie et data science**
 🔥 **Exercices pratiques avec des jeux de données réels**
 🔥 **Support pédagogique clair, structuré et accessible à vie**
-🔥 **Accès à une communauté d’apprentissage et de collaboration**
-
-
+🔥 **Accès à une communauté d'apprentissage et de collaboration**
 
 ## 📞 **Contactez-nous dès maintenant !**
 
-📧 **Email** : [formation@tcg-expertise.com](mailto:formation@tcg-expertise.com)
-📱 **Téléphone** : +226 25 45 67 67 / ‪+33779185080
+📧 **Email** : [formation@gmail.com](mailto:formation@gmail.com)
+📱 **Téléphone** : +226 77 77 77 77 / 88 88 88 88
 🌐 **Site web** : *En construction — restez connecté !*
-
 
 ### 🧭 Rejoignez-nous et entrez dans le monde de la **géologie numérique avec Python**.
 
-**➡️ Une compétence d’avenir — Une opportunité unique — Un tremplin pour votre carrière !**
+**➡️ Une compétence d'avenir — Une opportunité unique — Un tremplin pour votre carrière !**
 Alors
 *Rejoignez-nous pour une expérience d'apprentissage unique et enrichissante !*
     """,
@@ -249,7 +238,7 @@ def charger_contenu_module(module_name):
     if os.path.exists(module_file):
         with open(module_file, "r", encoding="utf-8") as f:
             return f.read()
-    return f"Contenu du {module_name} non trouvé."
+    return f"Veuillez cliquer sur le {module_name} pour voir le Contenu."
 
 def sauvegarder_contenu_module(module_name, content):
     """Sauvegarde le contenu d'un module spécifique"""
@@ -329,9 +318,12 @@ def generer_rapport_csv():
         return None
 
 # Initialiser les dossiers et fichiers
-#initialiser_dossier_modules()
-#initialiser_excel()
-#initialiser_config()
+initialiser_dossier_modules()
+initialiser_excel()
+initialiser_config()
+
+# Charger la configuration
+config = charger_config()
 
 # CSS personnalisé avec amélioration mobile
 st.markdown("""
@@ -339,33 +331,26 @@ st.markdown("""
     /* Mobile-first responsive design */
     @media (max-width: 768px) {
         .stApp {
-            padding: 0 !important;
+            padding: 0.5rem !important;
         }
         
         .main .block-container {
-            padding: 1rem !important;
+            padding: 0.5rem !important;
             max-width: 100% !important;
         }
         
         .mobile-nav {
-            display: block !important;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            display: flex !important;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 10px;
-            border-radius: 0 0 10px 10px;
-            margin-bottom: 20px;
-        }
-        
-        .mobile-nav-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            border-radius: 10px;
         }
         
         .mobile-nav-button {
-            padding: 8px 12px;
+            padding: 10px;
             border: none;
             border-radius: 8px;
             font-size: 0.9rem;
@@ -376,11 +361,11 @@ st.markdown("""
             color: white;
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.2);
+            width: 100%;
         }
         
         .mobile-nav-button:hover {
             background: rgba(255,255,255,0.2);
-            transform: scale(1.05);
         }
         
         .mobile-nav-button.active {
@@ -407,565 +392,191 @@ st.markdown("""
             text-align: center;
             font-size: 0.8rem;
         }
+        
+        /* Adjust form elements for mobile */
+        .stTextInput input, .stSelectbox select, .stNumberInput input, .stTextArea textarea {
+            font-size: 16px !important;
+            padding: 12px !important;
+        }
+        
+        /* Make buttons more touch-friendly */
+        .stButton button {
+            padding: 12px !important;
+            font-size: 16px !important;
+        }
+        
+        /* Adjust columns for mobile */
+        .stColumns {
+            flex-direction: column !important;
+        }
+        
+        .stColumn {
+            width: 100% !important;
+            margin-bottom: 1rem !important;
+        }
     }
     
+    /* Desktop styles */
     @media (min-width: 769px) {
         .mobile-nav {
             display: none !important;
         }
     }
     
-    /* Sidebar styling for desktop */
-    .stSidebar {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    
-    .stSidebar > div {
-        padding-top: 2rem;
-    }
-    
-    .sidebar-title {
-        color: white;
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 2rem;
-        background: rgba(255,255,255,0.1);
-        padding: 15px;
-        border-radius: 10px;
-    }
-    
-    .sidebar-button {
-        width: 100%;
-        padding: 15px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 10px;
-        font-size: 1.1rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-    }
-    
-    .sidebar-button:hover {
-        transform: translateX(5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    
-    .sidebar-button.active {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        color: white;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    
-    .sidebar-button:not(.active) {
-        background: rgba(255,255,255,0.1);
-        color: white;
-        border: 1px solid rgba(255,255,255,0.2);
-    }
-    
-    .sidebar-admin-status {
-        background: rgba(255,255,255,0.1);
-        color: white;
-        padding: 10px;
-        border-radius: 8px;
+    /* Common styles */
+    .page-container {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
         margin: 1rem 0;
-        text-align: center;
     }
     
-    .sidebar-contact {
-        background: rgba(255,255,255,0.05);
-        color: white;
-        padding: 15px;
-        border-radius: 8px;
-        margin-top: 2rem;
-        font-size: 0.9rem;
-    }
-    
-    /* Main content styling */
     .main-header {
         text-align: center;
         color: #2E86AB;
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
     
-    @media (max-width: 768px) {
-        .main-header {
-            font-size: 1.8rem;
-        }
-    }
-    
     .section-header {
         color: #A23B72;
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         margin: 1rem 0;
-        border-bottom: 3px solid #A23B72;
-        padding-bottom: 10px;
-    }
-    
-    @media (max-width: 768px) {
-        .section-header {
-            font-size: 1.4rem;
-        }
-    }
-    
-    .page-container {
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        margin: 1rem 0;
-    }
-    
-    @media (max-width: 768px) {
-        .page-container {
-            padding: 1rem;
-            border-radius: 10px;
-        }
-    }
-    
-    .description-content {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        padding: 30px;
-        border-radius: 15px;
-        margin: 20px 0;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-    
-    @media (max-width: 768px) {
-        .description-content {
-            padding: 15px;
-        }
-    }
-    
-    .admin-section {
-        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        padding: 20px;
-        border-radius: 15px;
-        margin: 20px 0;
-        border-left: 5px solid #ff6b6b;
-    }
-    
-    @media (max-width: 768px) {
-        .admin-section {
-            padding: 15px;
-        }
-    }
-    
-    .stats-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 20px;
-        border-radius: 10px;
-        color: white;
-        text-align: center;
-        margin: 10px 0;
-    }
-    
-    .module-content {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
-        border-left: 4px solid #007bff;
-        margin: 20px 0;
-    }
-    
-    @media (max-width: 768px) {
-        .module-content {
-            padding: 15px;
-        }
-    }
-    
-    .module-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 15px;
-        margin: 20px 0;
-    }
-    
-    @media (max-width: 768px) {
-        .module-grid {
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-        }
-    }
-    
-    .module-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: none;
-        font-size: 1rem;
-    }
-    
-    .module-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    }
-    
-    .module-card.active {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    }
-    
-    .site-image {
-        border-radius: 15px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        margin: 20px 0;
-    }
-    
-    .cta-section {
-        text-align: center;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 40px;
-        border-radius: 15px;
-        color: white;
-        margin: 30px 0;
-    }
-    
-    @media (max-width: 768px) {
-        .cta-section {
-            padding: 20px;
-        }
-    }
-    
-    .footer {
-        text-align: center;
-        color: #666;
-        margin-top: 3rem;
-        padding: 2rem;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        border-radius: 15px;
-    }
-    
-    @media (max-width: 768px) {
-        .footer {
-            padding: 1rem;
-        }
-    }
-    
-    .download-section {
-        background: linear-gradient(135deg, #e8f5e8 0%, #b8e6b8 100%);
-        padding: 20px;
-        border-radius: 15px;
-        margin: 20px 0;
-        border-left: 5px solid #28a745;
+        border-bottom: 2px solid #A23B72;
+        padding-bottom: 8px;
     }
     
     /* Hide streamlit branding */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
+
+# Menu mobile
+# Ajoutez ceci dans la partie CSS (remplacez la partie CSS existante)
+st.markdown("""
+<style>
+    /* Menu mobile */
+    .mobile-menu {
+        display: none;
+        margin-bottom: 1rem;
+    }
     
-    /* Responsive grid fixes */
+    .mobile-menu select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #667eea;
+        background-color: white;
+        font-size: 16px;
+    }
+    
     @media (max-width: 768px) {
-        .stColumns {
-            flex-direction: column;
+        .mobile-menu {
+            display: block;
         }
         
-        .stColumn {
-            width: 100% !important;
-            margin-bottom: 1rem;
+        .desktop-menu {
+            display: none;
+        }
+    }
+    
+    /* Autres styles mobiles */
+    @media (max-width: 768px) {
+        .stApp {
+            padding: 0.5rem !important;
+        }
+        
+        .stTextInput input, .stSelectbox select, 
+        .stNumberInput input, .stTextArea textarea {
+            font-size: 16px !important;
+            padding: 12px !important;
+        }
+        
+        .stButton button {
+            padding: 12px !important;
+            font-size: 16px !important;
         }
     }
 </style>
 """, unsafe_allow_html=True)
 
-<!-- NAVIGATION MOBILE -->
-<div class="mobile-overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
-<div class="mobile-nav">
-    <button class="mobile-menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu()">
-        <span>📱 Menu Principal</span>
-        <div class="hamburger-icon">
-            <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
-        </div>
-    </button>
-    
-    <div id="mobile-nav-content">
-        <div class="mobile-nav-grid">
-            <button class="mobile-nav-button" onclick="navigateTo('accueil')">🏠 Accueil</button>
-            <button class="mobile-nav-button" onclick="navigateTo('contenu')">📘 Contenu</button>
-            <button class="mobile-nav-button" onclick="navigateTo('inscription')">📝 Inscription</button>
-            <button class="mobile-nav-button" onclick="navigateTo('statistiques')">📊 Stats</button>
-            <button class="mobile-nav-button" onclick="navigateTo('admin')">👤 Admin</button>
-            <button class="mobile-nav-button" onclick="toggleContact()">📞 Contact</button>
-        </div>
-        
-        <div id="mobile-contact" class="mobile-contact" style="display: none;">
-            <p>📧 formation@gmail.com</p>
-            <p>📱 +226 77 77 77 77</p>
-            <p>📱 +226 88 88 88 88</p>
-        </div>
-        
-        <div class="mobile-status">
-            <span id="mobile-status-text">👤 Visiteur</span>
-        </div>
-    </div>
+# Ajoutez ceci juste après le CSS, avant le contenu principal
+st.markdown("""
+<div class="mobile-menu">
+    <select onchange="window.location.href=this.value">
+        <option value="#accueil">🏠 Accueil</option>
+        <option value="#contenu">📘 Contenu</option>
+        <option value="#inscription">📝 Inscription</option>
+        <option value="#statistiques">📊 Statistiques</option>
+        <option value="#admin">👤 Admin</option>
+    </select>
 </div>
+""", unsafe_allow_html=True)
 
-<script>
-function toggleMobileMenu() {
-    const toggle = document.getElementById('mobile-menu-toggle');
-    const content = document.getElementById('mobile-nav-content');
-    const overlay = document.getElementById('mobile-overlay');
-    
-    toggle.classList.toggle('active');
-    content.classList.toggle('active');
-    overlay.classList.toggle('active');
-    
-    // Fermer le contact si ouvert
-    if (!content.classList.contains('active')) {
-        document.getElementById('mobile-contact').style.display = 'none';
-    }
+# Modifiez la navigation pour utiliser des ancres
+pages = {
+    "accueil": "Accueil",
+    "contenu": "Contenu",
+    "inscription": "Inscription",
+    "statistiques": "Statistiques",
+    "admin": "Administration"
 }
 
-function navigateTo(page) {
-    // Utiliser les boutons Streamlit cachés pour la navigation
-    const buttons = document.querySelectorAll('[data-testid="stButton"] button');
-    buttons.forEach(button => {
-        if (button.textContent.includes(page) || 
-            (page === 'accueil' && button.textContent.includes('Accueil')) ||
-            (page === 'contenu' && button.textContent.includes('Contenu')) ||
-            (page === 'inscription' && button.textContent.includes('Inscription')) ||
-            (page === 'statistiques' && button.textContent.includes('Statistiques')) ||
-            (page === 'admin' && button.textContent.includes('Administration'))) {
-            button.click();
-        }
-    });
+# Dans chaque section de page, ajoutez une ancre
+if st.session_state.menu_page == "accueil":
+    st.markdown('<a name="accueil"></a>', unsafe_allow_html=True)
+    # ... reste du contenu de la page accueil
 
-    """, unsafe_allow_html=True)
-    
-    // Mettre à jour l'état actif
-    document.querySelectorAll('.mobile-nav-button').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    event.target.classList.add('active');
-    
-    // Fermer le menu après navigation
-    toggleMobileMenu();
-}
+elif st.session_state.menu_page == "contenu":
+    st.markdown('<a name="contenu"></a>', unsafe_allow_html=True)
+    # ... reste du contenu de la page contenu
 
-function toggleContact() {
-    const contact = document.getElementById('mobile-contact');
-    contact.style.display = contact.style.display === 'none' ? 'block' : 'none';
-}
-
-// Mettre à jour le statut admin
-function updateMobileStatus(isAdmin) {
-    const statusText = document.getElementById('mobile-status-text');
-    if (statusText) {
-        statusText.textContent = isAdmin ? '✅ Admin' : '👤 Visiteur';
-    }
-}
-
-// Fermer le menu en cliquant en dehors
-document.addEventListener('click', function(event) {
-    const nav = document.querySelector('.mobile-nav');
-    const overlay = document.getElementById('mobile-overlay');
-    
-    if (!nav.contains(event.target) && overlay.classList.contains('active')) {
-        toggleMobileMenu();
-    }
-});
-</script>
-
-# SIDEBAR MENU (pour desktop)
-config = charger_config()
-
-with st.sidebar:
-    st.markdown(f"""
-    <div class="sidebar-title">
-        🐍 Menu Principal
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Boutons de navigation
-    if st.button("🏠 Accueil", key="nav_accueil", use_container_width=True):
-        st.session_state.menu_page = "accueil"
-        st.rerun()
-    
-    if st.button("📘 Contenu Formation", key="nav_contenu", use_container_width=True):
-        st.session_state.menu_page = "contenu"
-        st.rerun()
-    
-    if st.button("📝 Inscription", key="nav_inscription", use_container_width=True):
-        st.session_state.menu_page = "inscription"
-        st.rerun()
-    
-    if st.button("📊 Statistiques", key="nav_stats", use_container_width=True):
-        st.session_state.menu_page = "statistiques"
-        st.rerun()
-    
-    if st.button("👤 Administration", key="nav_admin", use_container_width=True):
-        st.session_state.menu_page = "admin"
-        st.rerun()
-    
-    # Statut admin
-    if st.session_state.admin_logged_in:
-        st.markdown("""
-        <div class="sidebar-admin-status">
-            ✅ Connecté en tant qu'Admin
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-        <div class="sidebar-admin-status">
-            👤 Visiteur
-        </div>
-        """, unsafe_allow_html=True)
-    
-    # Informations de contact
-    st.markdown("""
-    <div class="sidebar-contact">
-        <h4>📞 Contact</h4>
-        <p>📧 formation@tcg-expertise.com</p>
-        <p>📱 +226 25 45 67 67</p>
-        <p>📱 +33779185080</p>
-    </div>
-    """, unsafe_allow_html=True)
+# etc. pour les autres pages
 
 # CONTENU PRINCIPAL
 st.markdown(f'<h1 class="main-header">{config["site_title"]}</h1>', unsafe_allow_html=True)
 
-# Page Administration
-if st.session_state.menu_page == "admin":
+# Navigation
+if st.session_state.menu_page == "accueil":
     st.markdown('<div class="page-container">', unsafe_allow_html=True)
-    st.markdown('<h2 class="section-header">👤 Administration</h2>', unsafe_allow_html=True)
     
-    if not st.session_state.admin_logged_in:
-        st.markdown("### 🔐 Connexion Administrateur")
-        with st.form("login_form"):
-            col1, col2 = st.columns(2)
-            with col1:
-                username = st.text_input("👤 Nom d'utilisateur", placeholder="Entrez votre nom d'utilisateur")
-            with col2:
-                password = st.text_input("🔒 Mot de passe", type="password", placeholder="Entrez votre mot de passe")
-            
-            submit_login = st.form_submit_button("🚀 Se connecter", type="primary", use_container_width=True)
-            
-            if submit_login:
-                if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-                    st.session_state.admin_logged_in = True
-                    st.success("✅ Connexion réussie ! Bienvenue administrateur.")
-                    st.balloons()
-                    st.rerun()
-                else:
-                    st.error("❌ Nom d'utilisateur ou mot de passe incorrect.")
-    else:
-        st.success("✅ Vous êtes connecté en tant qu'administrateur.")
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("🚪 Se déconnecter", type="secondary"):
-                st.session_state.admin_logged_in = False
-                st.success("Déconnexion réussie.")
-                st.rerun()
-        
-        with col2:
-            st.info("Utilisez le menu latéral pour accéder aux autres sections.")
-        
-        # Section de téléchargement des données
-        st.markdown("---")
-        st.markdown("### 📥 Téléchargement des données")
-        
-        df = charger_inscriptions()
-        
-        if not df.empty:
-            st.markdown(f"""
-            <div class="download-section">
-                <h4>📊 Base de données disponible</h4>
-                <p>📈 <strong>{len(df)}</strong> inscriptions enregistrées</p>
-                <p>📅 Dernière mise à jour : {datetime.now().strftime('%d/%m/%Y %H:%M')}</p>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            col1, col2, col3 = st.columns(3)
-            
-            with col1:
-                # Téléchargement Excel
-                excel_data = generer_fichier_excel_download()
-                if excel_data:
-                    st.download_button(
-                        label="📊 Télécharger Excel",
-                        data=excel_data,
-                        file_name=f"inscriptions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        type="primary",
-                        use_container_width=True
-                    )
-            
-            with col2:
-                # Téléchargement CSV
-                csv_data = generer_rapport_csv()
-                if csv_data:
-                    st.download_button(
-                        label="📄 Télécharger CSV",
-                        data=csv_data,
-                        file_name=f"inscriptions_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
-                        mime="text/csv",
-                        type="secondary",
-                        use_container_width=True
-                    )
-            
-            with col3:
-                # Bouton d'actualisation
-                if st.button("🔄 Actualiser", type="secondary", use_container_width=True):
-                    st.rerun()
-            
-            # Aperçu des données
-            st.markdown("### 👀 Aperçu des dernières inscriptions")
-            if len(df) > 0:
-                # Afficher les 5 dernières inscriptions
-                latest_df = df.tail(5)
-                st.dataframe(
-                    latest_df,
-                    use_container_width=True,
-                    height=200
-                )
-            
-            # Statistiques rapides
-            st.markdown("### 📈 Statistiques rapides")
-            col1, col2, col3, col4 = st.columns(4)
-            
-            with col1:
-                st.metric("👥 Total", len(df))
-            
-            with col2:
-                hommes = len(df[df['Sexe'] == 'Homme'])
-                st.metric("👨 Hommes", hommes)
-            
-            with col3:
-                femmes = len(df[df['Sexe'] == 'Femme'])
-                st.metric("👩 Femmes", femmes)
-            
-            with col4:
-                age_moyen = round(df['Âge'].mean(), 1)
-                st.metric("🎂 Âge moyen", f"{age_moyen} ans")
-        
-        else:
-            st.markdown("""
-            <div class="download-section">
-                <h4>📭 Aucune donnée disponible</h4>
-                <p>Aucune inscription n'a été enregistrée pour le moment.</p>
-                <p>Les téléchargements seront disponibles dès qu'il y aura des inscriptions.</p>
-            </div>
-            """, unsafe_allow_html=True)
+    # Affichage de l'image si disponible
+    if config.get("site_image"):
+        try:
+            image = Image.open(config["site_image"])
+            st.image(image, use_column_width=True, caption="Formation Python pour Géologie & Mines")
+        except:
+            pass
+    
+    # Contenu principal
+    st.markdown(f"""
+    <div class="description-content">
+        {config["site_description"]}
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # CTA Section
+    st.markdown("""
+    <div class="cta-section">
+        <h3>🚀 Prêt à commencer votre apprentissage ?</h3>
+        <p>Rejoignez notre formation et développez vos compétences Python dans le domaine géologique !</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Bouton d'inscription
+    if st.button("📝 S'inscrire maintenant", type="primary", use_container_width=True):
+        st.session_state.menu_page = "inscription"
+        st.rerun()
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-# Page Contenu Formation
 elif st.session_state.menu_page == "contenu":
     st.markdown('<div class="page-container">', unsafe_allow_html=True)
     st.markdown('<h2 class="section-header">📘 Contenu de la Formation</h2>', unsafe_allow_html=True)
@@ -973,10 +584,10 @@ elif st.session_state.menu_page == "contenu":
     # Sélection des modules en grille
     st.markdown("### 🎯 Sélectionnez un module")
     
-    # Créer une grille de modules
-    cols = st.columns(4)
+    # Créer une grille de modules adaptée au mobile
+    cols = st.columns(2)  # 2 colonnes sur mobile
     for i, module in enumerate(MODULES):
-        with cols[i % 4]:
+        with cols[i % 2]:
             if st.button(
                 f"📖 {module.split(' - ')[0]}",
                 key=f"module_{i}",
@@ -993,432 +604,283 @@ elif st.session_state.menu_page == "contenu":
     
     st.markdown(f"""
     <div class="module-content">
-        <h4>📄 Contenu du {st.session_state.selected_module}</h4>
-        <pre style="white-space: pre-wrap; font-family: inherit; font-size: 14px;">{contenu}</pre>
+        <pre style="white-space: pre-wrap; font-family: inherit; font-size: 16px;">{contenu}</pre>
     </div>
     """, unsafe_allow_html=True)
     
-    # Fonctions admin
-    if st.session_state.admin_logged_in:
-        st.markdown("---")
-        st.markdown("### 🔧 Fonctions Administrateur")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+elif st.session_state.menu_page == "inscription":
+    st.markdown('<div class="page-container">', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-header">📝 Formulaire d\'inscription</h2>', unsafe_allow_html=True)
+    
+    st.markdown("### 📋 Remplissez ce formulaire pour vous inscrire à la formation")
+    
+    with st.form("inscription_form", clear_on_submit=True):
+        # Informations personnelles
+        st.markdown("#### 👤 Informations personnelles")
+        
+        nom = st.text_input("Nom *", placeholder="Votre nom de famille")
+        prenom = st.text_input("Prénom *", placeholder="Votre prénom")
+        cnib = st.text_input("Numéro CNIB *", placeholder="Ex: A1234567")
+        telephone = st.text_input("Téléphone *", placeholder="Ex: 70123456")
+        structure = st.text_input("Structure/Organisation", placeholder="Université, entreprise, etc.")
         
         col1, col2 = st.columns(2)
-        
         with col1:
-            st.markdown("#### 📁 Téléverser un fichier")
-            uploaded_file = st.file_uploader("Choisir un fichier texte", type=['txt'])
-            if uploaded_file is not None:
-                content = uploaded_file.read().decode('utf-8')
-                if st.button("📤 Téléverser pour ce module", type="primary"):
-                    sauvegarder_contenu_module(st.session_state.selected_module, content)
-                    st.success(f"✅ Contenu du {st.session_state.selected_module} mis à jour!")
-                    st.rerun()
+            sexe = st.selectbox("Sexe *", ["", "Homme", "Femme"])
+        with col2:
+            age = st.number_input("Âge *", min_value=16, max_value=80, value=25)
         
-        with col2:
-            st.markdown("#### ✏️ Éditer le contenu")
-            if st.button("✏️ Éditer le contenu", type="secondary"):
-               st.session_state.show_editor = not st.session_state.show_editor
-               st.rerun()
-            if st.session_state.show_editor:
-                st.markdown("#### 📝 Éditeur de contenu")
-                nouveau_contenu = st.text_area(
-               "Contenu du module",
-               value=contenu,
-               height=300,
-               key="editor_content"
-           )
-                col1, col2 = st.columns(2)
-        with col1:
-            if st.button("💾 Sauvegarder", type="primary"):
-                   sauvegarder_contenu_module(st.session_state.selected_module, nouveau_contenu)
-                   st.success(f"✅ Contenu du {st.session_state.selected_module} sauvegardé!")
-                   st.session_state.show_editor = False
-                   st.rerun()
-           
-        with col2:
-            if st.button("❌ Annuler", type="secondary"):
-                   st.session_state.show_editor = False
-                   st.rerun()
-                   st.markdown('</div>', unsafe_allow_html=True)
+        niveau = st.selectbox("Niveau en programmation *", 
+                            ["", "Débutant", "Intermédiaire", "Avancé"])
+        
+        # Préférences de formation
+        st.markdown("#### 🎯 Préférences de formation")
+        periode = st.selectbox("Période souhaitée *", 
+                             ["", "Matinée (8h-12h)", "Après-midi (14h-18h)", 
+                              "Soirée (18h-22h)", "Week-end"])
+        
+        option_suivi = st.selectbox("Option de suivi *", 
+                                  ["", "Présentiel", "En ligne", "Hybride"])
+        
+        # Soumission
+        st.markdown("---")
+        submitted = st.form_submit_button("🚀 Envoyer l'inscription", type="primary", use_container_width=True)
+        
+        if submitted:
+            erreurs = []
+            
+            # Validation des champs obligatoires
+            if not nom or not valider_nom(nom):
+                erreurs.append("❌ Le nom est requis et ne doit contenir que des lettres")
+            
+            if not prenom or not valider_nom(prenom):
+                erreurs.append("❌ Le prénom est requis et ne doit contenir que des lettres")
+            
+            if not cnib or not valider_cnib(cnib):
+                erreurs.append("❌ Le numéro CNIB est requis et doit être au format valide (ex: A1234567)")
+            
+            if not telephone or not valider_telephone(telephone):
+                erreurs.append("❌ Le numéro de téléphone est requis et doit être au format valide")
+            
+            if not sexe:
+                erreurs.append("❌ Le sexe est requis")
+            
+            if not age or not valider_age(age):
+                erreurs.append("❌ L'âge doit être entre 16 et 80 ans")
+            
+            if not niveau:
+                erreurs.append("❌ Le niveau en programmation est requis")
+            
+            if not periode:
+                erreurs.append("❌ La période souhaitée est requise")
+            
+            if not option_suivi:
+                erreurs.append("❌ L'option de suivi est requise")
+            
+            if erreurs:
+                for erreur in erreurs:
+                    st.error(erreur)
+            else:
+                # Préparer les données
+                data = {
+                    "Nom": nom.strip().title(),
+                    "Prénom": prenom.strip().title(),
+                    "Numéro CNIB": cnib.strip().upper(),
+                    "Téléphone": telephone.strip(),
+                    "Structure": structure.strip() if structure else "Non renseigné",
+                    "Période souhaitée": periode,
+                    "Sexe": sexe,
+                    "Âge": age,
+                    "Niveau": niveau,
+                    "Option de suivi": option_suivi
+                }
+                
+                # Sauvegarder l'inscription
+                success, message = sauvegarder_inscription(data)
+                
+                if success:
+                    st.success(f"✅ {message}")
+                    st.balloons()
+                    
+                    # Afficher un récapitulatif
+                    st.markdown("### 📄 Récapitulatif de votre inscription")
+                    st.markdown(f"""
+                    **Nom complet :** {data['Prénom']} {data['Nom']}  
+                    **CNIB :** {data['Numéro CNIB']}  
+                    **Téléphone :** {data['Téléphone']}  
+                    **Structure :** {data['Structure']}  
+                    **Période :** {data['Période souhaitée']}  
+                    **Option :** {data['Option de suivi']}  
+                    **Niveau :** {data['Niveau']}
+                    """)
+                    
+                    st.info("📧 Vous recevrez bientôt un email de confirmation avec tous les détails de la formation.")
+                else:
+                    st.error(f"❌ {message}")
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
-# Page Accueil
-elif st.session_state.menu_page == "accueil":
-   st.markdown('<div class="page-container">', unsafe_allow_html=True)
-   
-   # Affichage de l'image si disponible
-   if config.get("site_image"):
-       try:
-           image = Image.open(config["site_image"])
-           st.image(image, use_column_width=True, caption="Formation Python pour Géologie & Mines")
-       except:
-           pass
-   
-   # Contenu principal
-   st.markdown(f"""
-   <div class="description-content">
-       {config["site_description"]}
-   </div>
-   """, unsafe_allow_html=True)
-   
-   # CTA Section
-   st.markdown("""
-   <div class="cta-section">
-       <h3>🚀 Prêt à commencer votre apprentissage ?</h3>
-       <p>Rejoignez notre formation et développez vos compétences Python dans le domaine géologique !</p>
-   </div>
-   """, unsafe_allow_html=True)
-   
-   # Bouton d'inscription
-   col1, col2, col3 = st.columns([1, 2, 1])
-   with col2:
-       if st.button("📝 S'inscrire maintenant", type="primary", use_container_width=True):
-           st.session_state.menu_page = "inscription"
-           st.rerun()
-   
-   # Fonctions admin pour la page d'accueil
-   if st.session_state.admin_logged_in:
-       st.markdown("---")
-       st.markdown('<div class="admin-section">', unsafe_allow_html=True)
-       st.markdown("### 🔧 Gestion de la page d'accueil")
-       
-       col1, col2 = st.columns(2)
-       
-       with col1:
-           nouveau_titre = st.text_input("Titre du site", value=config["site_title"])
-           
-           # Upload d'image
-           uploaded_image = st.file_uploader(
-               "Image de la formation",
-               type=['png', 'jpg', 'jpeg'],
-               help="Téléversez une image pour la page d'accueil"
-           )
-           
-           if uploaded_image is not None:
-               # Sauvegarder l'image
-               image_path = f"site_image.{uploaded_image.name.split('.')[-1]}"
-               with open(image_path, "wb") as f:
-                   f.write(uploaded_image.getbuffer())
-               config["site_image"] = image_path
-               st.success("✅ Image téléversée avec succès!")
-       
-       with col2:
-           if st.button("✏️ Éditer la description", type="secondary"):
-               st.session_state.show_description_editor = not st.session_state.show_description_editor
-               st.rerun()
-       
-       if st.session_state.show_description_editor:
-           nouvelle_description = st.text_area(
-               "Description du site",
-               value=config["site_description"],
-               height=400,
-               key="description_editor"
-           )
-           
-           col1, col2 = st.columns(2)
-           with col1:
-               if st.button("💾 Sauvegarder description", type="primary"):
-                   config["site_description"] = nouvelle_description
-                   config["site_title"] = nouveau_titre
-                   sauvegarder_config(config)
-                   st.success("✅ Configuration sauvegardée!")
-                   st.session_state.show_description_editor = False
-                   st.rerun()
-           
-           with col2:
-               if st.button("❌ Annuler édition", type="secondary"):
-                   st.session_state.show_description_editor = False
-                   st.rerun()
-       
-       st.markdown('</div>', unsafe_allow_html=True)
-   
-   st.markdown('</div>', unsafe_allow_html=True)
-
-# Page Inscription
-elif st.session_state.menu_page == "inscription":
-   st.markdown('<div class="page-container">', unsafe_allow_html=True)
-   st.markdown('<h2 class="section-header">📝 Formulaire d\'inscription</h2>', unsafe_allow_html=True)
-   
-   st.markdown("### 📋 Remplissez ce formulaire pour vous inscrire à la formation")
-   
-   with st.form("inscription_form", clear_on_submit=True):
-       # Informations personnelles
-       st.markdown("#### 👤 Informations personnelles")
-       col1, col2 = st.columns(2)
-       
-       with col1:
-           nom = st.text_input("Nom *", placeholder="Votre nom de famille")
-           prenom = st.text_input("Prénom *", placeholder="Votre prénom")
-           cnib = st.text_input("Numéro CNIB *", placeholder="Ex: A1234567")
-           telephone = st.text_input("Téléphone *", placeholder="Ex: 70123456")
-       
-       with col2:
-           structure = st.text_input("Structure/Organisation", placeholder="Université, entreprise, etc.")
-           sexe = st.selectbox("Sexe *", ["", "Homme", "Femme"])
-           age = st.number_input("Âge *", min_value=16, max_value=80, value=25)
-           niveau = st.selectbox("Niveau en programmation *", 
-                               ["", "Débutant", "Intermédiaire", "Avancé"])
-       
-       # Préférences de formation
-       st.markdown("#### 🎯 Préférences de formation")
-       col1, col2 = st.columns(2)
-       
-       with col1:
-           periode = st.selectbox("Période souhaitée *", 
-                                ["", "Matinée (8h-12h)", "Après-midi (14h-18h)", 
-                                 "Soirée (18h-22h)", "Week-end"])
-       
-       with col2:
-           option_suivi = st.selectbox("Option de suivi *", 
-                                     ["", "Présentiel", "En ligne", "Hybride"])
-       
-       # Motivation
-       st.markdown("#### 💭 Motivation (optionnel)")
-       motivation = st.text_area("Pourquoi souhaitez-vous suivre cette formation ?", 
-                               placeholder="Décrivez vos objectifs et motivations...")
-       
-       # Soumission
-       st.markdown("---")
-       submitted = st.form_submit_button("🚀 Envoyer l'inscription", type="primary", use_container_width=True)
-       
-       if submitted:
-           erreurs = []
-           
-           # Validation des champs obligatoires
-           if not nom or not valider_nom(nom):
-               erreurs.append("❌ Le nom est requis et ne doit contenir que des lettres")
-           
-           if not prenom or not valider_nom(prenom):
-               erreurs.append("❌ Le prénom est requis et ne doit contenir que des lettres")
-           
-           if not cnib or not valider_cnib(cnib):
-               erreurs.append("❌ Le numéro CNIB est requis et doit être au format valide (ex: A1234567)")
-           
-           if not telephone or not valider_telephone(telephone):
-               erreurs.append("❌ Le numéro de téléphone est requis et doit être au format valide")
-           
-           if not sexe:
-               erreurs.append("❌ Le sexe est requis")
-           
-           if not age or not valider_age(age):
-               erreurs.append("❌ L'âge doit être entre 16 et 80 ans")
-           
-           if not niveau:
-               erreurs.append("❌ Le niveau en programmation est requis")
-           
-           if not periode:
-               erreurs.append("❌ La période souhaitée est requise")
-           
-           if not option_suivi:
-               erreurs.append("❌ L'option de suivi est requise")
-           
-           if erreurs:
-               for erreur in erreurs:
-                   st.error(erreur)
-           else:
-               # Préparer les données
-               data = {
-                   "Nom": nom.strip().title(),
-                   "Prénom": prenom.strip().title(),
-                   "Numéro CNIB": cnib.strip().upper(),
-                   "Téléphone": telephone.strip(),
-                   "Structure": structure.strip() if structure else "Non renseigné",
-                   "Période souhaitée": periode,
-                   "Sexe": sexe,
-                   "Âge": age,
-                   "Niveau": niveau,
-                   "Option de suivi": option_suivi
-               }
-               
-               # Sauvegarder l'inscription
-               success, message = sauvegarder_inscription(data)
-               
-               if success:
-                   st.success(f"✅ {message}")
-                   st.balloons()
-                   
-                   # Afficher un récapitulatif
-                   st.markdown("### 📄 Récapitulatif de votre inscription")
-                   st.markdown(f"""
-                   **Nom complet :** {data['Prénom']} {data['Nom']}  
-                   **CNIB :** {data['Numéro CNIB']}  
-                   **Téléphone :** {data['Téléphone']}  
-                   **Structure :** {data['Structure']}  
-                   **Période :** {data['Période souhaitée']}  
-                   **Option :** {data['Option de suivi']}  
-                   **Niveau :** {data['Niveau']}
-                   """)
-                   
-                   st.info("📧 Vous recevrez bientôt un email de confirmation avec tous les détails de la formation.")
-               else:
-                   st.error(f"❌ {message}")
-   
-   st.markdown('</div>', unsafe_allow_html=True)
-
-# Page Statistiques
 elif st.session_state.menu_page == "statistiques":
     st.markdown('<div class="page-container">', unsafe_allow_html=True)
     st.markdown('<h2 class="section-header">📊 Statistiques des inscriptions</h2>', unsafe_allow_html=True)
     
-    # Vérification des droits d'accès administrateur
-    if not st.session_state.admin_logged_in:
-        st.markdown("""
-        <div class="admin-section">
-            <h3>🔒 Accès restreint</h3>
-            <p>Cette page est réservée aux administrateurs.</p>
-            <p>Veuillez vous connecter en tant qu'administrateur pour accéder aux statistiques.</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        col1, col2, col3 = st.columns([1, 1, 1])
-        with col2:
-            if st.button("👤 Aller à la page Administration", type="primary", use_container_width=True):
-                st.session_state.menu_page = "admin"
-                st.rerun()
-        
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.stop()
-    
     df = charger_inscriptions()
     if df.empty:
-       st.markdown("""
-       <div class="stats-card">
-           <h3>📭 Aucune inscription</h3>
-           <p>Il n'y a pas encore d'inscriptions enregistrées.</p>
-           <p>Les statistiques apparaîtront dès qu'il y aura des données.</p>
-       </div>
-       """, unsafe_allow_html=True)
+        st.markdown("""
+        <div class="stats-card">
+            <h3>📭 Aucune inscription</h3>
+            <p>Il n'y a pas encore d'inscriptions enregistrées.</p>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-       # Statistiques générales
-       st.markdown("### 📈 Vue d'ensemble")
-       
-       col1, col2, col3, col4 = st.columns(4)
-       
-       with col1:
-           st.markdown(f"""
-           <div class="stats-card">
-               <h3>👥 Total</h3>
-               <h2>{len(df)}</h2>
-               <p>Inscriptions</p>
-           </div>
-           """, unsafe_allow_html=True)
-       
-       with col2:
-           hommes = len(df[df['Sexe'] == 'Homme'])
-           pourcentage_hommes = (hommes / len(df)) * 100
-           st.markdown(f"""
-           <div class="stats-card">
-               <h3>👨 Hommes</h3>
-               <h2>{hommes}</h2>
-               <p>{pourcentage_hommes:.1f}%</p>
-           </div>
-           """, unsafe_allow_html=True)
-       
-       with col3:
-           femmes = len(df[df['Sexe'] == 'Femme'])
-           pourcentage_femmes = (femmes / len(df)) * 100
-           st.markdown(f"""
-           <div class="stats-card">
-               <h3>👩 Femmes</h3>
-               <h2>{femmes}</h2>
-               <p>{pourcentage_femmes:.1f}%</p>
-           </div>
-           """, unsafe_allow_html=True)
-       
-       with col4:
-           age_moyen = df['Âge'].mean()
-           st.markdown(f"""
-           <div class="stats-card">
-               <h3>🎂 Âge moyen</h3>
-               <h2>{age_moyen:.1f}</h2>
-               <p>ans</p>
-           </div>
-           """, unsafe_allow_html=True)
-       
-       # Graphiques
-       st.markdown("### 📊 Graphiques détaillés")
-       
-       col1, col2 = st.columns(2)
-       
-       with col1:
-           # Graphique sexe
-           sexe_counts = df['Sexe'].value_counts()
-           fig_sexe = px.pie(
-               values=sexe_counts.values,
-               names=sexe_counts.index,
-               title="Répartition par sexe",
-               color_discrete_sequence=['#667eea', '#764ba2']
-           )
-           st.plotly_chart(fig_sexe, use_container_width=True)
-       
-       with col2:
-           # Graphique niveau
-           niveau_counts = df['Niveau'].value_counts()
-           fig_niveau = px.bar(
-               x=niveau_counts.index,
-               y=niveau_counts.values,
-               title="Répartition par niveau",
-               color=niveau_counts.values,
-               color_continuous_scale='viridis'
-           )
-           st.plotly_chart(fig_niveau, use_container_width=True)
-       
-       col1, col2 = st.columns(2)
-       
-       with col1:
-           # Graphique période
-           periode_counts = df['Période souhaitée'].value_counts()
-           fig_periode = px.bar(
-               x=periode_counts.values,
-               y=periode_counts.index,
-               title="Préférences de période",
-               orientation='h',
-               color=periode_counts.values,
-               color_continuous_scale='plasma'
-           )
-           st.plotly_chart(fig_periode, use_container_width=True)
-       
-       with col2:
-           # Graphique option de suivi
-           option_counts = df['Option de suivi'].value_counts()
-           fig_option = px.pie(
-               values=option_counts.values,
-               names=option_counts.index,
-               title="Options de suivi",
-               color_discrete_sequence=['#f093fb', '#f5576c', '#4facfe']
-           )
-           st.plotly_chart(fig_option, use_container_width=True)
-       
-       # Distribution des âges
-       st.markdown("### 📊 Distribution des âges")
-       fig_age = px.histogram(
-           df,
-           x='Âge',
-           nbins=20,
-           title="Distribution des âges des inscrits",
-           color_discrete_sequence=['#667eea']
-       )
-       st.plotly_chart(fig_age, use_container_width=True)
-       
-       # Tableau des inscriptions récentes
-       #st.markdown("### 📋 Inscriptions récentes")
-       #if len(df) > 0:
-       #    recent_df = df.tail(10)[['Nom', 'Prénom', 'Sexe', 'Âge', 'Niveau', 'Date d\'inscription']]
-       #    st.dataframe(recent_df, use_container_width=True)
-       
-       # Bouton de rafraîchissement
-       col1, col2, col3 = st.columns([1, 1, 1])
-       with col2:
-           if st.button("🔄 Actualiser les statistiques", type="primary", use_container_width=True):
-               st.rerun()
-   
+        # Statistiques générales
+        st.markdown("### 📈 Vue d'ensemble")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.metric("👥 Total", len(df))
+        
+        with col2:
+            age_moyen = round(df['Âge'].mean(), 1)
+            st.metric("🎂 Âge moyen", f"{age_moyen} ans")
+        
+        # Graphiques simples pour mobile
+        st.markdown("### 📊 Graphiques")
+        
+        # Graphique sexe
+        sexe_counts = df['Sexe'].value_counts()
+        fig_sexe = px.pie(
+            values=sexe_counts.values,
+            names=sexe_counts.index,
+            title="Répartition par sexe"
+        )
+        st.plotly_chart(fig_sexe, use_container_width=True)
+        
+        # Graphique niveau
+        niveau_counts = df['Niveau'].value_counts()
+        fig_niveau = px.bar(
+            x=niveau_counts.index,
+            y=niveau_counts.values,
+            title="Répartition par niveau"
+        )
+        st.plotly_chart(fig_niveau, use_container_width=True)
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
+elif st.session_state.menu_page == "admin":
+    st.markdown('<div class="page-container">', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-header">👤 Administration</h2>', unsafe_allow_html=True)
+    
+    if not st.session_state.admin_logged_in:
+        st.markdown("### 🔐 Connexion Administrateur")
+        with st.form("login_form"):
+            username = st.text_input("👤 Nom d'utilisateur", placeholder="Entrez votre nom d'utilisateur")
+            password = st.text_input("🔒 Mot de passe", type="password", placeholder="Entrez votre mot de passe")
+            
+            submit_login = st.form_submit_button("🚀 Se connecter", type="primary", use_container_width=True)
+            
+            if submit_login:
+                if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+                    st.session_state.admin_logged_in = True
+                    st.success("✅ Connexion réussie ! Bienvenue administrateur.")
+                    st.balloons()
+                    st.rerun()
+                else:
+                    st.error("❌ Nom d'utilisateur ou mot de passe incorrect.")
+    else:
+        st.success("✅ Vous êtes connecté en tant qu'administrateur.")
+        
+        if st.button("🚪 Se déconnecter", type="secondary"):
+            st.session_state.admin_logged_in = False
+            st.success("Déconnexion réussie.")
+            st.rerun()
+        
+        # Section de téléchargement des données
+        st.markdown("---")
+        st.markdown("### 📥 Téléchargement des données")
+        
+        df = charger_inscriptions()
+        
+        if not df.empty:
+            st.markdown(f"""
+            <div class="download-section">
+                <h4>📊 Base de données disponible</h4>
+                <p>📈 <strong>{len(df)}</strong> inscriptions enregistrées</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Téléchargement Excel
+            excel_data = generer_fichier_excel_download()
+            if excel_data:
+                st.download_button(
+                    label="📊 Télécharger Excel",
+                    data=excel_data,
+                    file_name=f"inscriptions_{datetime.now().strftime('%Y%m%d')}.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    type="primary",
+                    use_container_width=True
+                )
+            
+            # Téléchargement CSV
+            csv_data = generer_rapport_csv()
+            if csv_data:
+                st.download_button(
+                    label="📄 Télécharger CSV",
+                    data=csv_data,
+                    file_name=f"inscriptions_{datetime.now().strftime('%Y%m%d')}.csv",
+                    mime="text/csv",
+                    type="secondary",
+                    use_container_width=True
+                )
+        else:
+            st.markdown("""
+            <div class="download-section">
+                <h4>📭 Aucune donnée disponible</h4>
+                <p>Aucune inscription n'a été enregistrée pour le moment.</p>
+            </div>
+            """, unsafe_allow_html=True)
+    
     st.markdown('</div>', unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
 <div class="footer">
    <p>© 2025 Formation Python pour Géologie & Mines</p>
-   <p>Développé avec ❤️ par l'équipe de formation</p>
-   <p>📧 formation@tcg-expertise.com | 📱 +226 25 45 67 67 / ‪+33779185080</p>
+   <p>📧 formation@gmail.com | 📱 +226 77 77 77 77</p>
 </div>
+""", unsafe_allow_html=True)
+
+# JavaScript pour la navigation mobile
+st.markdown("""
+<script>
+// Fonction pour changer de page
+function navigateTo(page) {
+    window.streamlitAPI.setComponentValue(page);
+}
+
+// Mettre à jour le statut admin
+function updateMobileStatus(isAdmin) {
+    const statusElement = document.querySelector('.mobile-status span');
+    if (statusElement) {
+        statusElement.textContent = isAdmin ? '✅ Admin' : '👤 Visiteur';
+    }
+}
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    // Mettre à jour le statut admin
+    updateMobileStatus(false);
+    
+    // Gestion des clics sur les boutons mobiles
+    document.querySelectorAll('.mobile-nav-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const page = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+            navigateTo(page);
+        });
+    });
+});
+</script>
 """, unsafe_allow_html=True)
