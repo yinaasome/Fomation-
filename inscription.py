@@ -331,14 +331,14 @@ def generer_rapport_csv():
 # Initialiser les dossiers et fichiers
 #initialiser_dossier_modules()
 #initialiser_excel()
-"initialiser_config()
+#initialiser_config()
 
 # Charger la configuration
 config = charger_config()
 
 st.markdown("""
 <style>
-/* Masquer sidebar sur mobile */             
+/* Masquer la sidebar en mobile (<768px) */
 @media screen and (max-width: 768px) {
     section[data-testid="stSidebar"] {
         display: none !important;
@@ -348,7 +348,7 @@ st.markdown("""
     }
 }
 
-/* Afficher le bouton hamburger seulement sur mobile */
+/* Bouton ☰ (menu mobile) */
 .mobile-toggle-btn {
     display: none;
     position: fixed;
@@ -362,10 +362,9 @@ st.markdown("""
     border: none;
     font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Zone simulée pour sidebar mobile */
+/* Menu mobile (slide in) */
 #mobileSidebar {
     display: none;
     position: fixed;
@@ -377,16 +376,10 @@ st.markdown("""
     z-index: 998;
     padding: 2rem 1rem;
     color: white;
-    overflow-y: auto;
-    border-right: 3px solid #555;
 }
-
-/* Quand actif */
 #mobileSidebar.active {
     display: block;
 }
-
-/* Fermer */
 .close-mobile-sidebar {
     background: transparent;
     color: white;
@@ -399,19 +392,19 @@ st.markdown("""
 }
 </style>
 
-<!-- Bouton mobile -->
+<!-- Bouton ☰ -->
 <button class="mobile-toggle-btn" onclick="toggleMobileSidebar()">☰ Menu</button>
 
-<!-- Sidebar mobile -->
+<!-- Menu mobile (mêmes liens que les boutons Streamlit) -->
 <div id="mobileSidebar">
     <button class="close-mobile-sidebar" onclick="toggleMobileSidebar()">×</button>
-    <h2>📘 Menu Principal</h2>
+    <h3>📘 Menu Principal</h3>
     <ul style="list-style:none; padding-left:0;">
-        <li><a href="#" onclick="triggerStreamlitButton('Accueil')" style="color:white;">🏠 Accueil</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('Contenu')" style="color:white;">📘 Contenu</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('Inscription')" style="color:white;">📝 Inscription</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('Statistiques')" style="color:white;">📊 Stats</a></li>
-        <li><a href="#" onclick="triggerStreamlitButton('Administration')" style="color:white;">👤 Admin</a></li>
+        <li><a href="#" onclick="triggerStreamlitButton('🏠 Accueil')" style="color:white;">🏠 Accueil</a></li>
+        <li><a href="#" onclick="triggerStreamlitButton('📘 Contenu Formation')" style="color:white;">📘 Contenu</a></li>
+        <li><a href="#" onclick="triggerStreamlitButton('📝 Inscription')" style="color:white;">📝 Inscription</a></li>
+        <li><a href="#" onclick="triggerStreamlitButton('📊 Statistiques')" style="color:white;">📊 Statistiques</a></li>
+        <li><a href="#" onclick="triggerStreamlitButton('👤 Administration')" style="color:white;">👤 Admin</a></li>
     </ul>
 </div>
 
@@ -420,8 +413,6 @@ function toggleMobileSidebar() {
     var sidebar = document.getElementById('mobileSidebar');
     sidebar.classList.toggle('active');
 }
-
-// Simuler clic sur bouton Streamlit
 function triggerStreamlitButton(label) {
     const buttons = window.parent.document.querySelectorAll('[data-testid="stButton"] button');
     buttons.forEach(btn => {
@@ -429,35 +420,21 @@ function triggerStreamlitButton(label) {
             btn.click();
         }
     });
-    toggleMobileSidebar(); // Fermer après clic
+    toggleMobileSidebar();
 }
 </script>
 """, unsafe_allow_html=True)
 
 
+# --- 2. Boutons visibles seulement sur PC dans la vraie sidebar ---
 with st.sidebar:
     st.markdown('<div class="sidebar-title">🐍 Menu Principal</div>', unsafe_allow_html=True)
     accueil = st.button("Accueil")
     contenu = st.button("Contenu")
     inscription = st.button("Inscription")
-    stats = st.button("Statistiques")
+    statistiques = st.button("Statistiques")
     admin = st.button("Administration")
 
-# Exemple de routing
-if accueil:
-    st.header("🏠 Accueil")
-elif contenu:
-    st.header("📘 Contenu")
-elif inscription:
-    st.header("📝 Formulaire d'inscription")
-elif stats:
-    st.header("📊 Statistiques")
-elif admin:
-    st.header("👤 Interface admin")
-else:
-    st.header("Bienvenue sur la plateforme")
-
-    
     # Boutons de navigation
     if st.button("🏠 Accueil", key="nav_accueil", use_container_width=True):
         st.session_state.menu_page = "accueil"
