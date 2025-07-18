@@ -130,8 +130,8 @@ Cette formation est conçue pour toute personne souhaitant intégrer le numériq
 
 ## 📞 **Contactez-nous dès maintenant !**
 
-📧 **Email** : [formation@gmail.com](mailto:formation@gmail.com)
-📱 **Téléphone** : +226 77 77 77 77 / 88 88 88 88
+📧 **Email** : [formation@tcg-expertise.com](mailto:formation@tcg-expertise.com)
+📱 **Téléphone** : 25 45 67 67 / ‪+33779185080
 🌐 **Site web** : *En construction — restez connecté !*
 
 
@@ -584,9 +584,9 @@ with st.sidebar:
     st.markdown("""
     <div class="sidebar-contact">
         <h4>📞 Contact</h4>
-        <p>📧 formation@gmail.com</p>
-        <p>📱 +226 77 77 77 77</p>
-        <p>📱 +226 88 88 88 88</p>
+        <p>📧 formation@tcg-expertise.com</p>
+        <p>📱 +226 25 45 67 67</p>
+        <p>📱 ‪+33779185080</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -1172,6 +1172,6 @@ st.markdown("""
 <div class="footer">
    <p>© 2025 Formation Python pour Géologie & Mines</p>
    <p>Développé avec ❤️ par l'équipe de formation</p>
-   <p>📧 formation@gmail.com | 📱 +226 77 77 77 77</p>
+   <p>📧 formation@tcg-expertise.com | 📱 25 45 67 67 / ‪+33779185080</p>
 </div>
 """, unsafe_allow_html=True)
