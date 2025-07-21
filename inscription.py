@@ -610,43 +610,45 @@ elif st.session_state.menu_page == "accueil":
 elif st.session_state.menu_page == "contenu":
     st.markdown('<div class="card"><h2 class="section-title">📚 Contenu de la Formation</h2></div>', unsafe_allow_html=True)
     
-    # Affichage responsive des modules
-    for module in MODULES:
-        if st.button(
-            f"📖 {module}",
-            key=f"module_{MODULES.index(module)}",
-            use_container_width=True
-        ):
-            st.session_state.selected_module = module.split(" - ")[0]
-            st.rerun()
+    # Si aucun module n'est sélectionné, sélectionner le premier par défaut
+    if not hasattr(st.session_state, 'selected_module') or not st.session_state.selected_module:
+        st.session_state.selected_module = MODULES[0].split(" - ")[0]
     
-    # Affichage du contenu du module sélectionné
-    if hasattr(st.session_state, 'selected_module') and st.session_state.selected_module:
-        full_module_name = next((m for m in MODULES if m.startswith(st.session_state.selected_module)), None)
-        
-        if full_module_name:
-            st.markdown(f'<div class="card"><h3>📖 {full_module_name}</h3></div>', unsafe_allow_html=True)
-            
-            content = charger_contenu_module(full_module_name)
-            st.markdown(f'<div class="card">{content}</div>', unsafe_allow_html=True)
-            
-            # Navigation entre modules
-            current_index = MODULES.index(full_module_name)
-            cols = st.columns(2)
-            
-            with cols[0]:
-                if current_index > 0:
-                    prev_module = MODULES[current_index - 1]
-                    if st.button(f"⬅️ {prev_module}", use_container_width=True):
-                        st.session_state.selected_module = prev_module.split(" - ")[0]
-                        st.rerun()
-            
-            with cols[1]:
-                if current_index < len(MODULES) - 1:
-                    next_module = MODULES[current_index + 1]
-                    if st.button(f"➡️ {next_module}", use_container_width=True):
-                        st.session_state.selected_module = next_module.split(" - ")[0]
-                        st.rerun()
+    # Trouver le module complet correspondant à la sélection
+    full_module_name = next((m for m in MODULES if m.startswith(st.session_state.selected_module)), MODULES[0])
+    
+    # Afficher le contenu du module sélectionné
+    st.markdown(f'<div class="card"><h3>📖 {full_module_name}</h3></div>', unsafe_allow_html=True)
+    content = charger_contenu_module(full_module_name)
+    st.markdown(f'<div class="card">{content}</div>', unsafe_allow_html=True)
+    
+    # Navigation entre modules
+    current_index = MODULES.index(full_module_name)
+    cols = st.columns(2)
+    
+    with cols[0]:
+        if current_index > 0:
+            prev_module = MODULES[current_index - 1]
+            if st.button(f"⬅️ {prev_module.split(' - ')[0]}", use_container_width=True):
+                st.session_state.selected_module = prev_module.split(" - ")[0]
+                st.rerun()
+    
+    with cols[1]:
+        if current_index < len(MODULES) - 1:
+            next_module = MODULES[current_index + 1]
+            if st.button(f"{next_module.split(' - ')[0]} ➡️", use_container_width=True):
+                st.session_state.selected_module = next_module.split(" - ")[0]
+                st.rerun()
+    
+    # Onglets pour navigation rapide
+    st.markdown('<div class="card"><h4>Navigation rapide</h4></div>', unsafe_allow_html=True)
+    tabs = st.tabs([module.split(" - ")[0] for module in MODULES])
+    
+    for i, tab in enumerate(tabs):
+        with tab:
+            if st.button(f"Aller à {MODULES[i].split(' - ')[0]}", use_container_width=True):
+                st.session_state.selected_module = MODULES[i].split(" - ")[0]
+                st.rerun()
 
 # Page Inscription
 elif st.session_state.menu_page == "inscription":
