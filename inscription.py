@@ -44,12 +44,12 @@ if 'sidebar_collapsed' not in st.session_state:
 # Liste des modules
 MODULES = [
     "Module 1 - Introduction à Python",
-    "Module 2 - Bases de la programmation",
-    "Module 3 - Structures de données",
-    "Module 4 - Fonctions et modules",
-    "Module 5 - Manipulation de fichiers",
-    "Module 6 - Bibliothèques géologiques",
-    "Module 7 - Visualisation de données",
+    "Module 3 - Bases de la programmation",
+    "Module 2 - Structures de données",
+    "Module 5 - Fonctions et modules",
+    "Module 4 - Manipulation de fichiers",
+    "Module 7 - Bibliothèques géologiques",
+    "Module 6 - Visualisation de données",
     "Module 8 - Projet final"
 ]
 
