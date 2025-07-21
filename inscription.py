@@ -605,26 +605,6 @@ elif st.session_state.menu_page == "accueil":
         </p>
     </div>
     """, unsafe_allow_html=True)
-    
-    if st.session_state.admin_logged_in:
-        df = charger_inscriptions()
-        if not df.empty:
-            cols = st.columns(4)
-            stats = [
-                ("📈", "Inscriptions", len(df)),
-                ("👨", "Hommes", len(df[df['Sexe'] == 'Homme'])) if 'Sexe' in df.columns else ("👨", "Hommes", 0),
-                ("👩", "Femmes", len(df[df['Sexe'] == 'Femme'])) if 'Sexe' in df.columns else ("👩", "Femmes", 0),
-                ("🎂", "Âge moyen", round(df['Âge'].mean(), 1) if 'Âge' in df.columns else 0)
-            ]
-            
-            for i, (icon, label, value) in enumerate(stats):
-                with cols[i]:
-                    st.markdown(f"""
-                    <div class="stats-card">
-                        <h3>{icon} {value}</h3>
-                        <p>{label}</p>
-                    </div>
-                    """, unsafe_allow_html=True)
 
 # Page Contenu Formation
 elif st.session_state.menu_page == "contenu":
