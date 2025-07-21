@@ -26,22 +26,20 @@ config_file = "site_config.json"
 ADMIN_ONLY_PAGES = ["admin", "statistiques"]
 
 # Initialiser les variables de session
-if 'admin_logged_in' not in st.session_state:
-    st.session_state.admin_logged_in = False
-if 'inscriptions_df' not in st.session_state:
-    st.session_state.inscriptions_df = pd.DataFrame()
-if 'selected_module' not in st.session_state:
-    st.session_state.selected_module = "Module 1"
-if 'show_editor' not in st.session_state:
-    st.session_state.show_editor = False
-if 'menu_page' not in st.session_state:
-    st.session_state.menu_page = "accueil"
-if 'show_description_editor' not in st.session_state:
-    st.session_state.show_description_editor = False
-if 'sidebar_collapsed' not in st.session_state:
-    st.session_state.sidebar_collapsed = False
-if 'is_mobile' not in st.session_state:
-    st.session_state.is_mobile = False
+session_defaults = {
+    'admin_logged_in': False,
+    'inscriptions_df': pd.DataFrame(),
+    'selected_module': "Module 1",
+    'show_editor': False,
+    'menu_page': "accueil",
+    'show_description_editor': False,
+    'sidebar_collapsed': False,
+    'is_mobile': False
+}
+
+for key, value in session_defaults.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
 
 # Liste des modules
 MODULES = [
@@ -62,9 +60,8 @@ DEFAULT_CONFIG = {
     "site_image": None
 }
 
-# Fonctions utilitaires
 def detect_mobile():
-    user_agent = st.experimental_get_query_params().get("user_agent", [""])[0]
+    user_agent = st.query_params.get("user_agent", [""])[0]
     mobile_keywords = ['mobile', 'android', 'iphone', 'ipad', 'windows phone']
     return any(keyword in user_agent.lower() for keyword in mobile_keywords)
 
@@ -351,19 +348,20 @@ if not st.session_state.sidebar_collapsed:
         </div>
         """, unsafe_allow_html=True)
         
+        # Correction appliquée ici :
         nav_options = [
-            ("🏠 Accueil", "accueil"),
-            ("📘 Contenu Formation", "contenu"),
-            ("📝 Inscription", "inscription")
+            ("🏠accueil", "accueil"),
+            ("📘contenu", "contenu"),
+            ("📝inscription", "inscription")
         ]
         
         if st.session_state.admin_logged_in:
-            nav_options.append(("📊 Statistiques", "statistiques"))
+            nav_options.append(("📊statistiques", "statistiques"))
         
-        nav_options.append(("👤 Administration", "admin"))
+        nav_options.append(("👤admin", "admin"))
         
         for icon, page in nav_options:
-            if st.button(icon + " " + page.split()[-1], key=f"nav_{page}", use_container_width=True):
+            if st.button(f"{icon} {page.capitalize()}", key=f"nav_{page}", use_container_width=True):
                 st.session_state.menu_page = page
                 st.rerun()
         
@@ -388,15 +386,15 @@ if st.session_state.sidebar_collapsed:
     st.markdown('<div class="card"><h3>🧭 Navigation</h3></div>', unsafe_allow_html=True)
     
     nav_options = [
-        ("🏠", "accueil"),
-        ("📘", "contenu"),
-        ("📝", "inscription")
+        ("🏠accueil", "accueil"),
+        ("📘contenu", "contenu"),
+        ("📝inscription", "inscription")
     ]
     
     if st.session_state.admin_logged_in:
-        nav_options.append(("📊", "statistiques"))
+        nav_options.append(("📊statistiques", "statistiques"))
     
-    nav_options.append(("👤", "admin"))
+    nav_options.append(("👤admin", "admin"))
     
     cols = st.columns(len(nav_options))
     for i, (icon, page) in enumerate(nav_options):
@@ -681,32 +679,71 @@ elif st.session_state.menu_page == "statistiques":
                 st.metric("Âge moyen", round(df['Âge'].mean(), 1))
             
             # Graphiques
-            cols = st.columns(2)
-            
-            with cols[0]:
-                if 'Sexe' in df.columns:
-                    fig_sexe = px.pie(df, names='Sexe', title="👥 Répartition par sexe")
-                    st.plotly_chart(fig_sexe, use_container_width=True)
-                
-                if 'Niveau' in df.columns:
-                    niveau_counts = prepare_count_data(df, 'Niveau')
-                    fig_niveau = px.bar(niveau_counts, x='Niveau', y='count', title="📊 Niveaux Python")
-                    st.plotly_chart(fig_niveau, use_container_width=True)
-            
-            with cols[1]:
-                if 'Période souhaitée' in df.columns:
-                    periode_counts = prepare_count_data(df, 'Période souhaitée')
-                    fig_periode = px.bar(periode_counts, x='Période', y='count', title="📅 Périodes préférées")
-                    st.plotly_chart(fig_periode, use_container_width=True)
-                
-                if 'Option de suivi' in df.columns:
-                    fig_suivi = px.pie(df, names='Option de suivi', title="💻 Modes de suivi")
-                    st.plotly_chart(fig_suivi, use_container_width=True)
-            
-            if 'Âge' in df.columns:
-                st.markdown('<div class="card"><h3>📈 Distribution des âges</h3></div>', unsafe_allow_html=True)
-                fig_age = px.histogram(df, x='Âge', nbins=20, title="Âge des participants")
-                st.plotly_chart(fig_age, use_container_width=True)
+        col_left, col_right = st.columns(2)
+        
+        with col_left:
+            # Graphique répartition par sexe
+            # Graphique répartition par sexe
+            if 'Sexe' in df.columns:
+                fig_sexe = px.pie(
+                    df, 
+                    names='Sexe', 
+                    title="👥 Répartition par sexe",
+                    color_discrete_sequence=['#667eea', '#764ba2']
+                    )
+                st.plotly_chart(fig_sexe, use_container_width=True)
+                # Graphique répartition par niveau
+            if 'Niveau' in df.columns:
+                niveau_counts = df['Niveau'].value_counts().reset_index()
+                niveau_counts.columns = ['Niveau', 'count']  # Renommer les colonnes
+                fig_niveau = px.bar(
+                     niveau_counts, 
+                     x='Niveau', 
+                     y='count',
+                     title="📊 Répartition par niveau Python",
+                     color_discrete_sequence=['#667eea']
+                     )
+                fig_niveau.update_xaxes(title="Niveau")
+                fig_niveau.update_yaxes(title="Nombre d'inscrits")
+                st.plotly_chart(fig_niveau, use_container_width=True)
+                with col_right:
+                    # Graphique répartition par période
+                    if 'Période souhaitée' in df.columns:
+                        periode_counts = df['Période souhaitée'].value_counts().reset_index()
+                        periode_counts.columns = ['Période', 'count']  # Renommer les colonnes
+                        fig_periode = px.bar(
+                            periode_counts,
+                            x='Période',
+                            y='count',
+                            title="📅 Périodes préférées",
+                            color_discrete_sequence=['#764ba2']
+                            )
+                        fig_periode.update_xaxes(title="Période")
+                        fig_periode.update_yaxes(title="Nombre d'inscrits")
+                        st.plotly_chart(fig_periode, use_container_width=True)
+                        # Graphique répartition par mode de suivi
+                        if 'Option de suivi' in df.columns:
+                            fig_suivi = px.pie(
+                                df, 
+                                names='Option de suivi', 
+                                title="💻 Modes de suivi préférés",
+                                color_discrete_sequence=['#f093fb', '#f5576c', '#4facfe']
+                                )
+                            st.plotly_chart(fig_suivi, use_container_width=True)
+
+                            # Histogramme des âges
+                        if 'Âge' in df.columns:
+                             st.markdown("### 📈 Distribution des âges")
+                             fig_age = px.histogram(
+                                 df, 
+                                x='Âge', 
+                                nbins=20, 
+                                title="Répartition par tranches d'âge",
+                                color_discrete_sequence=['#667eea']
+                                )
+                             fig_age.update_xaxes(title="Âge")
+                             fig_age.update_yaxes(title="Nombre d'inscrits")
+                        st.plotly_chart(fig_age, use_container_width=True)
 
 # Footer
 st.markdown("""
