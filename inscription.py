@@ -20,7 +20,7 @@ st.set_page_config(
 
 # Configuration Admin
 ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "python2025"
+ADMIN_PASSWORD = "python2025!"
 modules_dir = "modules_formation"
 config_file = "site_config.json"
 ADMIN_ONLY_PAGES = ["admin", "statistiques"]
@@ -56,7 +56,94 @@ MODULES = [
 # Configuration par défaut du site
 DEFAULT_CONFIG = {
     "site_title": "Formation Python pour Géologie & Mines",
-    "site_description": "Une formation complète pour maîtriser Python dans le domaine de la géologie et des mines.",
+    "site_description": """
+
+# 🐍 **Bienvenue à la Formation Python pour les Sciences Géologiques & Minières**
+
+## 💡 Pourquoi apprendre Python dans le domaine de la géologie et des mines ?
+
+Python est aujourd’hui **le langage incontournable** pour l’analyse et la visualisation de données scientifiques. Dans les domaines de la géologie et des mines, il permet de :
+
+🔹 Automatiser le traitement de données géophysiques et géochimiques
+🔹 Cartographier et modéliser des structures géologiques
+🔹 Simuler des processus miniers et environnementaux
+🔹 Gérer et analyser des données volumineuses avec précision
+🔹 Améliorer la prise de décision grâce à des visualisations interactives
+
+**Bref, Python devient un véritable outil d’aide à la décision dans le secteur géo-minier.**
+
+
+
+## 🎯 **Objectifs de la formation**
+
+À la fin de cette formation, vous serez capable de :
+
+✅ **Maîtriser les bases de Python**
+
+* Syntaxe simple et intuitive
+* Structures de données : listes, dictionnaires, tableaux
+* Fonctions, boucles, conditions
+* Programmation orientée objet
+
+✅ **Appliquer Python aux problématiques géo-minières**
+
+* Traitement et nettoyage de données issues du terrain
+* Analyse statistique de données géologiques
+* Visualisation de forages, profils géophysiques, cartes, etc.
+* Création de modèles géologiques simplifiés
+
+✅ **Utiliser les bibliothèques incontournables**
+
+* **NumPy** & **Pandas** : Manipulation et analyse de données
+* **Matplotlib** & **Plotly** : Graphiques et cartes interactives
+* **Geopandas**, **PyGSLIB**, **lasio**, etc. : Pour les applications spécifiques en géosciences
+
+
+
+## 👤 **À qui s’adresse cette formation ?**
+
+Cette formation est conçue pour toute personne souhaitant intégrer le numérique et la programmation dans les métiers de la géologie et des mines :
+
+👨‍🎓 **Étudiants** en géologie, génie minier, ou environnement
+👷‍♂️ **Professionnels** du secteur minier, pétrolier ou géotechnique
+🔬 **Chercheurs** en sciences de la Terre
+🛠 **Ingénieurs** en exploration, production ou aménagement
+
+*Aucun niveau avancé en programmation n’est requis. Vous apprendrez de zéro !*
+
+
+## 📚 **Organisation de la formation**
+
+📅 **Durée** : 8 modules répartis sur 4 semaines
+🏫 **Format** : Présentiel ou 100% en ligne
+🖥 **Prérequis** : Aisance avec l’ordinateur (Windows/Linux)
+🎓 **Attestation** : Certificat délivré à la fin de la formation
+
+
+
+## 💥 **Les plus de notre formation**
+
+🔥 **Formation 100% adaptée au terrain géo-minier**
+🔥 **Encadrement par des experts en géologie et data science**
+🔥 **Exercices pratiques avec des jeux de données réels**
+🔥 **Support pédagogique clair, structuré et accessible à vie**
+🔥 **Accès à une communauté d’apprentissage et de collaboration**
+
+
+
+## 📞 **Contactez-nous dès maintenant !**
+
+📧 **Email** : [formation@tcg-expertise.com](mailto:formation@tcg-expertise.com)
+📱 **Téléphone** : +226 25 45 67 67 / ‪+33779185080
+🌐 **Site web** : *En construction — restez connecté !*
+
+
+### 🧭 Rejoignez-nous et entrez dans le monde de la **géologie numérique avec Python**.
+
+**➡️ Une compétence d’avenir — Une opportunité unique — Un tremplin pour votre carrière !**
+Alors
+*Rejoignez-nous pour une expérience d'apprentissage unique et enrichissante !*
+    """,
     "site_image": None
 }
 
@@ -375,9 +462,9 @@ if not st.session_state.sidebar_collapsed:
         st.markdown("""
         <div class="card">
             <h4>📞 Contact</h4>
-            <p>📧 formation@gmail.com</p>
-            <p>📱 +226 77 77 77 77</p>
-            <p>📱 +226 88 88 88 88</p>
+            <p>📧 formation@tcg-expertise.com</p>
+            <p>📱 +226 25 45 67 67</p>
+            <p>📱 ‪+33779185080</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -500,6 +587,37 @@ if st.session_state.menu_page == "admin":
                     st.success("✅ Image supprimée avec succès!")
                 except Exception as e:
                     st.error(f"❌ Erreur lors de la suppression de l'image: {str(e)}")
+        
+        if st.button("📝 Modifier la description du site"):
+            st.session_state.show_description_editor = not st.session_state.show_description_editor
+            st.rerun()
+        
+        if st.session_state.show_description_editor:
+            new_description = st.text_area("Description du site", value=config["site_description"], height=300)
+            
+            if st.button("💾 Sauvegarder", type="primary"):
+                config["site_description"] = new_description
+                sauvegarder_config(config)
+                st.success("✅ Description mise à jour !")
+                st.session_state.show_description_editor = False
+                st.rerun()
+        
+        # Gestion des modules
+        if st.button("📖 Modifier les modules"):
+            st.session_state.show_editor = not st.session_state.show_editor
+            st.rerun()
+        
+        if st.session_state.show_editor:
+            selected_module = st.selectbox("Module à modifier", MODULES)
+            current_content = charger_contenu_module(selected_module)
+            new_content = st.text_area("Contenu du module", value=current_content, height=400)
+            
+            if st.button("💾 Sauvegarder le module", type="primary"):
+                sauvegarder_contenu_module(selected_module, new_content)
+                st.success(f"✅ {selected_module} mis à jour !")
+        
+        # Gestion du contenu
+        st.markdown('<div class="card"><h3>✏️ Gestion du contenu</h3></div>', unsafe_allow_html=True)
         
         if st.button("📝 Modifier la description du site"):
             st.session_state.show_description_editor = not st.session_state.show_description_editor
@@ -765,7 +883,7 @@ st.markdown("""
     <div style="text-align: center;">
         <h3>🐍 Formation Python - Géologie & Mines</h3>
         <p>© 2025 - Tous droits réservés</p>
-        <p>📧 formation@gmail.com | 📱 +226 77 77 77 77</p>
+        <p>📧 formation@tcg-expertise.com | 📱 +226 25 45 67 67 / ‪+33779185080</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
