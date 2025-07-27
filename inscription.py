@@ -573,7 +573,7 @@ if st.session_state.menu_page == "admin":
                 st.success("✅ Image mise à jour avec succès!")
                 
                 # Afficher un aperçu
-                st.image(uploaded_image, caption="Nouvelle image du site", use_column_width=True)
+                st.image(uploaded_image, caption="Nouvelle image du site", use_container_width=True)
             except Exception as e:
                 st.error(f"❌ Erreur lors du téléchargement de l'image: {str(e)}")
         
@@ -623,7 +623,7 @@ elif st.session_state.menu_page == "accueil":
     if config.get("site_image"):
         try:
             image = Image.open(config["site_image"])
-            st.image(image, use_column_width=True, caption="Formation Python - Géologie & Mines")
+            st.image(image, use_container_width=True, caption="Formation Python - Géologie & Mines")
         except:
             pass
     
