@@ -556,6 +556,69 @@ if st.session_state.menu_page == "admin":
         # Gestion du contenu
         st.markdown('<div class="card"><h3>✏️ Gestion du contenu</h3></div>', unsafe_allow_html=True)
         
+        # Nouvelle section pour changer l'image
+        st.markdown('<div class="card"><h4>🖼️ Changer l\'image du site</h4></div>', unsafe_allow_html=True)
+        uploaded_image = st.file_uploader("Télécharger une nouvelle image", type=["jpg", "jpeg", "png"])
+        
+        if uploaded_image is not None:
+            try:
+                # Sauvegarder l'image
+                image_path = "site_image." + uploaded_image.name.split(".")[-1]
+                with open(image_path, "wb") as f:
+                    f.write(uploaded_image.getbuffer())
+                
+                # Mettre à jour la configuration
+                config["site_image"] = image_path
+                sauvegarder_config(config)
+                st.success("✅ Image mise à jour avec succès!")
+                
+                # Afficher un aperçu
+                st.image(uploaded_image, caption="Nouvelle image du site", use_column_width=True)
+            except Exception as e:
+                st.error(f"❌ Erreur lors du téléchargement de l'image: {str(e)}")
+        
+        # Bouton pour supprimer l'image actuelle
+        if config.get("site_image"):
+            if st.button("🗑️ Supprimer l'image actuelle", type="secondary"):
+                try:
+                    os.remove(config["site_image"])
+                    config["site_image"] = None
+                    sauvegarder_config(config)
+                    st.success("✅ Image supprimée avec succès!")
+                except Exception as e:
+                    st.error(f"❌ Erreur lors de la suppression de l'image: {str(e)}")
+        
+        if st.button("📝 Modifier la description du site"):
+            st.session_state.show_description_editor = not st.session_state.show_description_editor
+            st.rerun()
+        
+        if st.session_state.show_description_editor:
+            new_description = st.text_area("Description du site", value=config["site_description"], height=300)
+            
+            if st.button("💾 Sauvegarder", type="primary"):
+                config["site_description"] = new_description
+                sauvegarder_config(config)
+                st.success("✅ Description mise à jour !")
+                st.session_state.show_description_editor = False
+                st.rerun()
+        
+        # Gestion des modules
+        if st.button("📖 Modifier les modules"):
+            st.session_state.show_editor = not st.session_state.show_editor
+            st.rerun()
+        
+        if st.session_state.show_editor:
+            selected_module = st.selectbox("Module à modifier", MODULES)
+            current_content = charger_contenu_module(selected_module)
+            new_content = st.text_area("Contenu du module", value=current_content, height=400)
+            
+            if st.button("💾 Sauvegarder le module", type="primary"):
+                sauvegarder_contenu_module(selected_module, new_content)
+                st.success(f"✅ {selected_module} mis à jour !")
+        
+        # Gestion du contenu
+        st.markdown('<div class="card"><h3>✏️ Gestion du contenu</h3></div>', unsafe_allow_html=True)
+        
         if st.button("📝 Modifier la description du site"):
             st.session_state.show_description_editor = not st.session_state.show_description_editor
             st.rerun()
